@@ -87,9 +87,15 @@ this.handlePut = function(req, res, pkg){
 		    to: '+1'+req.body.phone,
 		    from: "+12013454820"
 		}, function(err, message) {
+			if (err){
+			  	res.json({'confirmation':'fail', 'message':err.message});
+				return;
+			}
+			
 		    process.stdout.write(message.sid);
 		  	res.json({'confirmation':'success', 'profile':profile.summary()});
 			return;
+			
 		});
 	});
 }

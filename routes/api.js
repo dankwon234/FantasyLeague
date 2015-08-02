@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var Profile = require('../models/Profile');
 var profileController = require('../controllers/ProfileController.js');
-var controllers = {'profile':profileController};
+var groupController = require('../controllers/GroupController.js');
+var controllers = {'profile':profileController, 'group':groupController};
 var twilio = require('twilio');
 
 
