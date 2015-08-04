@@ -4,9 +4,8 @@ var Profile = require('../models/Profile');
 var NFLPlayer = require('../models/NFLPlayer');
 var profileController = require('../controllers/ProfileController.js');
 var groupController = require('../controllers/GroupController.js');
-var rosterController = require('../controllers/RosterController.js');
 var nflPlayerController = require('../controllers/NFLPlayerController.js');
-var controllers = {'profile':profileController, 'group':groupController, 'roster':rosterController, 'nflplayer':nflPlayerController};
+var controllers = {'profile':profileController, 'group':groupController, 'nflplayer':nflPlayerController};
 var twilio = require('twilio');
 var fs = require('fs');
 
@@ -14,8 +13,9 @@ var fs = require('fs');
 /* GET home page. */
 router.get('/:resource', function(req, res, next) {
 	
-	var resource = req.params.resource;
-	if (resource == 'nflroster'){
+	/*
+	// This creates all offensive position nfl players from a static file:
+	if (req.params.resource == 'nflroster'){
 		fs.readFile('public/resources/nflplayers.json', 'utf8', function (err, data) {
 		  if (err) {
 	  		res.send({'confirmation':'fail', 'message':err.message});
@@ -45,14 +45,12 @@ router.get('/:resource', function(req, res, next) {
 		  }
 		  
 		  
-//		  var json = JSON.stringify(playersJson, null, 2);
 		  var json = JSON.stringify(players, null, 2); // this makes the json 'pretty' by indenting it
 		  res.send(json);
 		});
-		
-		
 		return;
 	}
+	*/
 	
 	var controller = controllers[req.params.resource];
 	if (controller == null){
