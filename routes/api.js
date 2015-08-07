@@ -4,14 +4,62 @@ var Profile = require('../models/Profile');
 var NFLPlayer = require('../models/NFLPlayer');
 var profileController = require('../controllers/ProfileController.js');
 var groupController = require('../controllers/GroupController.js');
+var contestController = require('../controllers/ContestController.js');
 var nflPlayerController = require('../controllers/NFLPlayerController.js');
-var controllers = {'profile':profileController, 'group':groupController, 'nflplayer':nflPlayerController};
+var controllers = {'profile':profileController, 'group':groupController, 'contest':contestController, 'nflplayer':nflPlayerController};
 var twilio = require('twilio');
 var fs = require('fs');
+var request = require('request');
 
 
 /* GET home page. */
 router.get('/:resource', function(req, res, next) {
+	
+	if (req.params.resource == 'stats'){
+		
+//		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2014REG/5';
+		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByTeam/2014REG/5/NYG';
+//		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/Schedules/2015REG';
+ 
+		var options = {
+		  url: endpoint,
+		  headers: { 'Ocp-Apim-Subscription-Key': '4399b4154eba468985945039d762b59b' }
+		};
+ 
+		request(options, function callback(error, response, body) {
+			if (error){
+				console.log('ERROR: '+error.message);
+				return;
+			}
+			
+			if (response.statusCode == 200) {
+				var info = JSON.parse(body);
+				
+	  		    res.setHeader('content-type', 'application/json');
+	  		    var json = JSON.stringify(info, null, 2); // this makes the json 'pretty' by indenting it
+	  		    res.send(json);
+			}
+		});		
+		
+		return;
+	}
+	
+	if (req.params.resource == 'week5'){
+		fs.readFile('public/resources/2014week5.json', 'utf8', function (err, data) {
+		  if (err) {
+	  		res.send({'confirmation':'fail', 'message':err.message});
+			return;
+		  }
+		  
+		  res.setHeader('content-type', 'application/json');
+		  
+//		  var statsJson = JSON.parse(data); // this is an array
+		  var json = JSON.stringify(data, null, 2); // this makes the json 'pretty' by indenting it
+		  res.send(json);
+	  });
+	  
+	  return;
+	}
 	
 	/*
 	// This creates all offensive position nfl players from a static file:
