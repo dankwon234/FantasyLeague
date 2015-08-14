@@ -11,6 +11,9 @@ var twilio = require('twilio');
 var fs = require('fs');
 var request = require('request');
 var Promise = require('bluebird');
+var WeeklySummary = require('../models/WeeklySummary.js');
+var Contest = require('../models/Contest.js');
+var Group = require('../models/Group.js');
 var controllers = {
 	'profile':profileController,
 	'group':groupController,
@@ -20,9 +23,6 @@ var controllers = {
 };
 
 
-var WeeklySummary = require('../models/WeeklySummary.js');
-var Contest = require('../models/Contest.js');
-var Group = require('../models/Group.js');
 
 
 var fetchWeeklySummaries = function(week){
