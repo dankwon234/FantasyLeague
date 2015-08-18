@@ -60,34 +60,30 @@ var fetchGroup = function(groupId){
 }
 
 // this function inserts player results into the contest[results] key:
-var updateContest = function(contest, stats, rosters){
-	var entries = contest['entries']; // array of profile id numbers
+var updateContest = function(contest, stats){
+	var entries = contest['entries']; // [{profile:123, lineup:[134132, 3213, 12555, etc]}]
 	var results = {};
 	var ranking = [];
 	
 	for (var i=0; i<entries.length; i++){
-		var profileId = entries[i];
-//		console.log('ENTRY: '+profileId);
+		var entry = entries[i];
+		var profileId = entry['profile'];
 		
-		var roster = rosters[profileId];
-		if (roster == null)
+		var lineup = entry['lineup']; // this is an array of player IDs
+		if (lineup == null)
 			continue;
 		
 		score = 0;
-		var playerList = roster['roster']; // this is an array of player IDs
-		for (var j=0; j<playerList.length; j++){
-			var playerId = playerList[j];
+		for (var j=0; j<lineup.length; j++){
+			var playerId = lineup[j];
 			
-//			console.log(j+'. PLAYER ID: '+playerId);
 			var playerResult = stats[playerId];
-			
 			if (playerResult == null) { // player did not play that week
 				console.log('PLAYER RESULT '+playerId+ ' NOT FOUND');
 				continue;
 			}
 			
 			playerResult['profile'] = profileId; // throw the owner's id in there to make scoring easier
-//			console.log(JSON.stringify(playerResult));
 			results[playerId] = playerResult;
 			
 			score += parseFloat(playerResult['score']);
@@ -113,43 +109,140 @@ var updateContest = function(contest, stats, rosters){
 /* GET home page. */
 router.get('/:resource', function(req, res, next) {
 	
-	/*
-	if (req.params.resource == 'createstatus'){
-		fs.readFile('public/resources/2015SchedulePRE.json', 'utf8', function (err, data) {
-			if (err) {
-				res.send({'confirmation':'fail', 'message':err.message});
-				return;
-			}
-			
-			var schedule = JSON.parse(data); // this is an array
-			
-			var games = {};
-			for (var i=0; i<schedule.length; i++){
-				var game = schedule[i];
-				if (game.Week != 1)
-					continue;
-				
-				delete game["StadiumID"];
-				delete game["StadiumDetails"];
-				delete game["Channel"];
-				games[game.GameKey] = game;
-			}
-			
-			var statusSummary = {'games':games, 'week':1, 'isCurrent':'yes', 'season':'2015'};
-			Status.create(statusSummary, function(err, status){
-				if (err){
-					res.json({'confirmation':'fail', 'message':err.message});
-					return;
-				}
+	/* This runs through the results of played games and enters the stats into the weekly summary */
+	if (req.params.resource == 'updateweeklysummary'){
+		var week = req.query.week;
+		if (week == null){
+			res.json({'confirmation':'fail', 'message':'Missing week parameter.'});
+			return;
+		}
 		
-			  	res.json({'confirmation':'success', 'status':status.summary()});
+		fs.readFile('public/resources/2015week'+week+'.json', 'utf8', function (err, data) {
+			if (err){
+				res.json({'confirmation':'fail', 'message':err.message});
 				return;
+			}
+			
+		  	var statsJson = JSON.parse(data); // this is an array
+			var scoringKey = {
+				'KickReturnTouchdowns':6, 
+				'PuntReturnTouchdowns':6, 
+				'FumblesLost':-2, 
+				'TwoPointConversionReceptions':2, 
+				'TwoPointConversionRuns':2, 
+				'TwoPointConversionPasses':2, 
+				'FumbleReturnTouchdowns':6, 
+				'ReceivingTouchdowns':6, 
+				'ReceivingYards':0.1, 
+				'PassingYards':0.04, 
+				'RushingYards':0.1, 
+				'PassingTouchdowns':4, 
+				'PassingInterceptions':-2, 
+				'RushingTouchdowns':6
+			};
+
+		  	var summary = {};
+		  	var ignore = ['CustomD365FantasyPoints', 'FantasyPoints', 'Number', 'Week', 'PlayerID', 'SeasonType', 'Season', 'Activated', 'Played', 'Started', 'ShortName', 'PlayingSurface', 'Stadium', 'Temperature', 'Humidity', 'WindSpeed', 'FanDuelSalary', 'FantasyDataSalary', 'OffensiveSnapsPlayed', 'OffensiveTeamSnaps', 'DefensiveTeamSnaps', 'SpecialTeamsTeamSnaps', 'PassingRating', 'FantasyPointsPPR', 'ScoringDetails', 'PassingCompletionPercentage', 'PassingYardsPerAttempt', 'PassingYardsPerCompletion', 'RushingAttempts', 'RushingYardsPerAttempt', 'ReceivingTargets', 'ReceivingYardsPerReception', 'ReceptionPercentage', 'PassingLong', 'RushingLong'];
+		  	for (var i=0; i<statsJson.length; i++){
+					
+				var playerStats = statsJson[i];
+				if (playerStats['PositionCategory'] == 'DEF') // ignore defensive players
+					continue;
+
+				if (playerStats['Position'] == 'P') // ignore punters
+					continue;
+
+				var playerId = playerStats['PlayerID'].toString();
+				var playerSummary = {};
+
+				var stats = Object.keys(playerStats);
+				var score = 0;
+					
+				for (var j=0; j<stats.length; j++) {
+					var stat = stats[j];
+					if (ignore.indexOf(stat) != -1)
+						continue;
+
+					var value = playerStats[stat];
+					if (value == null)
+						continue;
+
+					if (value == 0) // only register what the player did
+						continue;
+
+					playerSummary[stat] = value;
+					
+					if (stat=='PassingYards')
+						score += 0.04*value;
+
+					if (stat=='RushingYards')
+						score += 0.1*value;
+
+					if (stat=='PassingTouchdowns')
+						score += 4*value;
+
+					if (stat=='PassingInterceptions')
+						score += -2*value;
+
+					if (stat=='RushingTouchdowns')
+						score += 6*value;
+
+					if (stat=='ReceivingYards')
+						score += 0.1*value;
+
+					if (stat=='ReceivingTouchdowns')
+						score += 6*value;
+
+					if (stat=='FumbleReturnTouchdowns')
+						score += 6*value;
+
+					if (stat=='TwoPointConversionPasses')
+						score += 2*value;
+
+					if (stat=='TwoPointConversionRuns')
+						score += 2*value;
+
+					if (stat=='TwoPointConversionReceptions')
+						score += 2*value;
+
+					if (stat=='FumblesLost')
+						score += -2*value;
+
+					if (stat=='PuntReturnTouchdowns')
+						score += 6*value;
+
+					if (stat=='KickReturnTouchdowns')
+						score += 6*value;
+					}
+
+					playerSummary['score'] = score.toFixed(2);
+					summary[playerId] = playerSummary;
+				}
+				
+				
+				WeeklySummary.find(req.query, null, {sort: {timestamp: -1}}, function(err, weeklysummaries) {
+					console.log('FETCH WeeklySummary');
+					if (err) {
+						res.json({'confirmation':'fail', 'message':err.message});
+						return;
+					}
+					
+					if (weeklysummaries.length == 0)
+						return;
+					
+					var weeksummary = weeklysummaries[0];
+		  		  	weeksummary['stats'] = summary;
+					
+				  	res.json({'confirmation':'success', 'weekly summary':weeksummary.summary()});
+					weeksummary.save();
+					return;
+				});
 			});
-		});
+		
 		
 		return;
 	}
-	*/
+	
 	
 	
 	if (req.params.resource == 'score'){
@@ -181,17 +274,13 @@ router.get('/:resource', function(req, res, next) {
 			all['contests'] = contests;
 			return fetchGroup(groupId);
 		})
-		.then(function(group){
-			all['group'] = group;
-			
-			// process scores:
+		.then(function(group){ // process scores:
 			var weeklysummary = all['weekly summary'];
-			var rosters = group['rosters'];
 			
 			var contests = all['contests'];
 			for (var i=0; i<contests.length; i++){
 				var contest = contests[i];
-				updateContest(contest, weeklysummary['stats'], rosters);
+				updateContest(contest, weeklysummary['stats']);
 			}
 			
 			
@@ -210,8 +299,14 @@ router.get('/:resource', function(req, res, next) {
 	
 	
 	if (req.params.resource == 'stats'){
+		var week = req.query.week;
+		if (week == null){
+			res.json({'confirmation':'fail', 'message':'Missing week parameter.'});
+			return;
+		}
+		
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2014REG/4';
-		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2015PRE/0';
+		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2015PRE/'+week;
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByTeam/2014REG/5/NYG';
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/Schedules/2015REG';
 
