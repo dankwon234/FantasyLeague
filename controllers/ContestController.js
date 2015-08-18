@@ -18,7 +18,7 @@ this.handleGet = function(req, res, pkg){
 				res.json({'confirmation':'fail', 'message':'Contest '+pkg.id+' not found'});
 				return;
 			}
-
+			
 			res.json({'confirmation':'success', 'contest':contest.summary()});
 		});
 		return;
@@ -33,7 +33,15 @@ this.handleGet = function(req, res, pkg){
 			return;
 		}
 		
-		res.json({'confirmation':'success', 'contests':convertToJson(contests)});
+		var response = {'confirmation':'success', 'contests':convertToJson(contests)};
+	    var json = JSON.stringify(response, null, 2); // this makes the json 'pretty' by indenting it
+		
+		
+	    res.setHeader('content-type', 'application/json');
+	    res.send(json);
+		return;
+		
+//		res.json({'confirmation':'success', 'contests':convertToJson(contests)});
 	});
 }
 
@@ -60,7 +68,20 @@ this.handlePost = function(req, res, pkg){
 
 this.handlePut = function(req, res, pkg){
 	
-	Contest.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, contest){
+	var params = req.body;
+	
+	if ('action' in params){
+		if (params.action == 'enter'){
+			if (params.entries.length == 2){
+				params['state'] = 'pending';
+				params['activated'] = Date.now();
+			}
+		}
+		
+		delete params['action'];
+	}
+	
+	Contest.findByIdAndUpdate(req.params.id, params, {new:true}, function(err, contest){
 		if (err){
 			res.json({'confirmation':'fail', 'message':err.message});
 			return;
