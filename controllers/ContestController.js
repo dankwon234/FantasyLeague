@@ -33,12 +33,30 @@ this.handleGet = function(req, res, pkg){
 			return;
 		}
 		
-		var response = {'confirmation':'success', 'contests':convertToJson(contests)};
+		var unexpired = new Array();
+		var expired = new Array();
+		var now = new Date();
+		for (var i=0; i<contests.length; i++){
+			var contest = contests[i];
+			if (now >= contest.expires)  // contest expired
+				expired.push(contest);
+			else 
+				unexpired.push(contest);
+		}
+		
+		var response = {'confirmation':'success', 'contests':convertToJson(unexpired)};
 	    var json = JSON.stringify(response, null, 2); // this makes the json 'pretty' by indenting it
 		
 		
 	    res.setHeader('content-type', 'application/json');
 	    res.send(json);
+		
+		// remove expired contests from backend:
+		for (var i=0; i<expired.length; i++){
+			var contest = contests[i];
+			contest.remove();
+		}
+		
 		return;
 		
 //		res.json({'confirmation':'success', 'contests':convertToJson(contests)});
@@ -51,14 +69,20 @@ this.handleGet = function(req, res, pkg){
 
 
 this.handlePost = function(req, res, pkg){
-	console.log('Contest CONTROLLER: Handle POST');
+	console.log('Contest CONTROLLER - POST: '+JSON.stringify(req.body));
+	
+//	{"payouts":[9],"expires":"2015-08-20 22:54:23 +0000","minEntries":"10","title":"first contest","buyIn":"5","participants":["55be440aa3baa88d0ea459fe"],"group":"55c1888c1db957ba4cc95518","creator":"55be440aa3baa88d0ea459fe","state":"open","entries":[{"profile":"55be440aa3baa88d0ea459fe","lineup":["16815","16497","15150","16447","16144","SF"]}]}
+
+	var expiration = new Date(req.body.expires);
+	req.body['expires'] = expiration;
+	
 	
 	Contest.create(req.body, function(err, contest){
 		if (err){
 			res.json({'confirmation':'fail', 'message':err.message});
 			return;
 		}
-		
+
 	  	res.json({'confirmation':'success', 'contest':contest.summary()});
 	});
 }
