@@ -8,13 +8,12 @@ var GroupSchema = new mongoose.Schema({
 	image: {type:String, trim:true, default:''},
 	profiles: {type:Array, default:[]},
 	invited: {type:Array, default:[]},
-	salaryCap: {type:Number, default:1000000},
 	timestamp: {type:Date, default:Date.now},
 	rosters: {type:mongoose.Schema.Types.Mixed, default:{}}, // {profileId:{'profile':{}, 'roster':[] }}
 });
 
 GroupSchema.methods.summary = function() {
-	return {'title':this.title, 'salaryCap':this.salaryCap, 'admin':this.admin, 'isPublic':this.isPublic, 'invited':this.invited, 'profiles':this.profiles, 'image':this.image, 'timestamp':this.timestamp, rosters:this.rosters, 'id':this._id};
+	return {'title':this.title, 'admin':this.admin, 'isPublic':this.isPublic, 'invited':this.invited, 'profiles':this.profiles, 'image':this.image, 'timestamp':this.timestamp, rosters:this.rosters, 'id':this._id};
 };
 
 module.exports = mongoose.model('GroupSchema', GroupSchema);
