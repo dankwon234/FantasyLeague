@@ -63,7 +63,7 @@ var fetchGroup = function(groupId){
 var updateContest = function(contest, stats){
 	var entries = contest['entries']; // [{profile:123, lineup:[134132, 3213, 12555, etc]}]
 	var results = {};
-	var ranking = [];
+//	var ranking = [];
 	
 	for (var i=0; i<entries.length; i++){
 		var entry = entries[i];
@@ -89,18 +89,26 @@ var updateContest = function(contest, stats){
 			score += parseFloat(playerResult['score']);
 		}
 		
-		var scoreCard = {};
-		scoreCard['profile'] = profileId;
-		scoreCard['score'] = score;
-		ranking.push(scoreCard);
+		entry['score'] = score;
 		
-		ranking.sort(function(a, b) {
-		    return parseFloat(b.score) - parseFloat(a.score);
-		});
+//		var scoreCard = {};
+		// scoreCard['profile'] = profileId;
+		// scoreCard['score'] = score;
+		// ranking.push(scoreCard);
+		//
+		// ranking.sort(function(a, b) {
+		//     return parseFloat(b.score) - parseFloat(a.score);
+		// });
 		
 	}
 	
-	contest['ranking'] = ranking;
+	entries.sort(function(a, b) {
+	    return parseFloat(b.score) - parseFloat(a.score);
+	});
+	
+	contest['entries'] = entries;
+	
+//	contest['ranking'] = ranking;
 	contest['results'] = results;
 	contest.save();
 }
