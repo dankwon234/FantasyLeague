@@ -63,7 +63,6 @@ var fetchGroup = function(groupId){
 var updateContest = function(contest, stats){
 	var entries = contest['entries']; // [{profile:123, lineup:[134132, 3213, 12555, etc]}]
 	var results = {};
-//	var ranking = [];
 	
 	for (var i=0; i<entries.length; i++){
 		var entry = entries[i];
@@ -78,28 +77,15 @@ var updateContest = function(contest, stats){
 			var playerId = lineup[j];
 			
 			var playerResult = stats[playerId];
-			if (playerResult == null) { // player did not play that week
-				console.log('PLAYER RESULT '+playerId+ ' NOT FOUND');
+			if (playerResult == null)  // player did not play that week
 				continue;
-			}
 			
 			playerResult['profile'] = profileId; // throw the owner's id in there to make scoring easier
 			results[playerId] = playerResult;
-			
 			score += parseFloat(playerResult['score']);
 		}
 		
 		entry['score'] = score;
-		
-//		var scoreCard = {};
-		// scoreCard['profile'] = profileId;
-		// scoreCard['score'] = score;
-		// ranking.push(scoreCard);
-		//
-		// ranking.sort(function(a, b) {
-		//     return parseFloat(b.score) - parseFloat(a.score);
-		// });
-		
 	}
 	
 	entries.sort(function(a, b) {
@@ -107,8 +93,6 @@ var updateContest = function(contest, stats){
 	});
 	
 	contest['entries'] = entries;
-	
-//	contest['ranking'] = ranking;
 	contest['results'] = results;
 	contest.save();
 }
@@ -313,7 +297,6 @@ router.get('/:resource', function(req, res, next) {
 			return;
 		}
 		
-//		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2014REG/4';
 		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2015PRE/'+week;
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByTeam/2014REG/5/NYG';
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/Schedules/2015REG';
