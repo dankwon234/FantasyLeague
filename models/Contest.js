@@ -14,7 +14,6 @@ var ContestSchema = new mongoose.Schema({
 	buyIn: {type:Number, default:5},
 	payouts: {type:Array, default:[9]},
 	results: {type:mongoose.Schema.Types.Mixed, default:{}},
-	ranking: {type:Array, default:[]}, // { profileId:score }
 	activated: {type:Date, default:Date.now},
 	expires: {type:Date, default:Date.now},
 	timestamp: {type:Date, default:Date.now},
@@ -27,7 +26,6 @@ ContestSchema.methods.summary = function() {
 		'eligibleTeams':this.eligibleTeams,
 		'week':this.week,
 		'season':this.season,
-		'ranking':this.ranking,
 		'creator':this.creator,
 		'group':this.group, 
 		'title':this.title,
