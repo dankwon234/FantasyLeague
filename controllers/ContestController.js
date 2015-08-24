@@ -38,8 +38,12 @@ this.handleGet = function(req, res, pkg){
 		var now = new Date();
 		for (var i=0; i<contests.length; i++){
 			var contest = contests[i];
-			if (now >= contest.expires)  // contest expired
-				expired.push(contest);
+			if (now >= contest.expires){  // contest expired
+				if (contest.participants.length == 1) // not enough participants
+					expired.push(contest);
+				else
+					unexpired.push(contest);
+			}
 			else 
 				unexpired.push(contest);
 		}
@@ -98,7 +102,6 @@ this.handlePut = function(req, res, pkg){
 		if (params.action == 'enter'){
 			if (params.entries.length == 2){
 				params['state'] = 'pending';
-				params['activated'] = Date.now();
 			}
 		}
 		
