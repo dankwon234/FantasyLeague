@@ -406,7 +406,14 @@ router.post('/:resource', function(req, res, next) {
 
 
 router.put('/:resource/:id', function(req, res, next) {
-	var controller = controllers[req.params.resource];
+	var resource = req.params.resource;
+	
+	if (resource == 'invite'){
+		groupController.invite(req, res, null);
+		return;
+	}
+	
+	var controller = controllers[resource];
 	if (controller == null){
 		res.send({'confirmation':'fail', 'message':'Invalid Resource: '+req.params.resource});
 		return;
@@ -418,7 +425,6 @@ router.put('/:resource/:id', function(req, res, next) {
 	}
 	
 	controller.handlePut(req, res, {'id':req.params.id, 'parameters':req.query});
-	
 });
 
 
