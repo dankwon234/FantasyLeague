@@ -84,9 +84,12 @@ this.invite = function(req, res, pkg) {
 			return;
 		}
 		
-		var invited = req.body.invited;
-		for (var i=0; i<invited.length; i++)
-			group.invited.push(invited[i]);
+		var list = req.body.invited;
+		var all = group.invited;
+		for (var i=0; i<list.length; i++)
+			all.push(list[i]);
+		
+		group['invited'] = all;
 		
 		group.save(function(err, group){
 			if (err){
@@ -98,7 +101,6 @@ this.invite = function(req, res, pkg) {
 			return;
 		});
 
-		// res.json({'confirmation':'success', 'group':group.summary()});
 	});
 	return;
 }
