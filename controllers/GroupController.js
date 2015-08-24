@@ -43,8 +43,6 @@ this.handleGet = function(req, res, pkg){
 
 
 this.handlePost = function(req, res, pkg){
-	console.log('GROUP CONTROLLER: Handle POST');
-	
 	Group.create(req.body, function(err, group){
 		if (err){
 			res.json({'confirmation':'fail', 'message':err.message});
@@ -58,7 +56,7 @@ this.handlePost = function(req, res, pkg){
 
 // - - - - - - - - - - - - - - - - - - - - PUT HANDLER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-this.handlePut = function(req, res, pkg){
+this.handlePut = function(req, res, pkg) {
 	
 	Group.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, group){
 		if (err){
@@ -69,6 +67,42 @@ this.handlePut = function(req, res, pkg){
 	  	res.json({'confirmation':'success', 'group':group.summary()});
 		return;
 	});
+}
+
+
+this.invite = function(req, res, pkg) {
+	var groupId = req.body.group;
+	var invited = req.body.invited;
+	
+	Group.findById(groupId, function(err, group){
+		if (err){
+			res.json({'confirmation':'fail', 'message':'Group '+groupId+' not found'});
+			return;
+		}
+		
+		if (group==null){
+			res.json({'confirmation':'fail', 'message':'Group '+groupId+' not found'});
+			return;
+		}
+		
+		var inv = group.invited;
+		for (var i=0; i<invited.length; i++)
+			inv.push(invited[i]);
+		
+		group['invited'] = inv;
+		group.save(function(err, group){
+			if (err){
+				res.json({'confirmation':'fail', 'message':err.message});
+				return;
+			}
+			
+			res.json({'confirmation':'success', 'group':group.summary()});
+			return;
+		});
+
+		// res.json({'confirmation':'success', 'group':group.summary()});
+	});
+	return;
 }
 
 
