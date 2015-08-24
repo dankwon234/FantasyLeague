@@ -13,7 +13,19 @@ var GroupSchema = new mongoose.Schema({
 });
 
 GroupSchema.methods.summary = function() {
-	return {'title':this.title, 'admin':this.admin, 'isPublic':this.isPublic, 'invited':this.invited, 'profiles':this.profiles, 'image':this.image, 'timestamp':this.timestamp, rosters:this.rosters, 'id':this._id};
+	var summary = {
+		'title':this.title, 
+		'admin':this.admin, 
+		'isPublic':this.isPublic, 
+		'invited':this.invited, 
+		'profiles':this.profiles, 
+		'image':this.image, 
+		'timestamp':this.timestamp, 
+		'rosters':this.rosters, 
+		'id':this._id
+	};
+	
+	return summary;
 };
 
 module.exports = mongoose.model('GroupSchema', GroupSchema);
