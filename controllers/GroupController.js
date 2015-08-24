@@ -72,7 +72,6 @@ this.handlePut = function(req, res, pkg) {
 
 this.invite = function(req, res, pkg) {
 	var groupId = req.body.group;
-	var invited = req.body.invited;
 	
 	Group.findById(groupId, function(err, group){
 		if (err){
@@ -80,16 +79,15 @@ this.invite = function(req, res, pkg) {
 			return;
 		}
 		
-		if (group==null){
+		if (group == null){
 			res.json({'confirmation':'fail', 'message':'Group '+groupId+' not found'});
 			return;
 		}
 		
-		var inv = group.invited;
+		var invited = req.body.invited;
 		for (var i=0; i<invited.length; i++)
-			inv.push(invited[i]);
+			group.invited.push(invited[i]);
 		
-		group['invited'] = inv;
 		group.save(function(err, group){
 			if (err){
 				res.json({'confirmation':'fail', 'message':err.message});
