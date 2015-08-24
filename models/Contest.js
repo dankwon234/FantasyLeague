@@ -14,7 +14,6 @@ var ContestSchema = new mongoose.Schema({
 	buyIn: {type:Number, default:5},
 	payouts: {type:Array, default:[9]},
 	results: {type:mongoose.Schema.Types.Mixed, default:{}},
-	activated: {type:Date, default:Date.now},
 	expires: {type:Date, default:Date.now},
 	timestamp: {type:Date, default:Date.now},
 });
@@ -33,7 +32,6 @@ ContestSchema.methods.summary = function() {
 		'buyIn':this.buyIn,
 		'state':this.state,
 		'entries':this.entries,
-		'activated':this.activated,
 		'expires':this.expires,
 		'timestamp':this.timestamp,
 		'id':this._id
