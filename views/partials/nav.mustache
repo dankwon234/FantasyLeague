@@ -1,0 +1,35 @@
+        <div class="nav-container">
+            <a id="top"></a>
+			
+            <nav class="bg-dark">
+                <div class="nav-bar">
+                    <div class="module left">
+                        <a href="/">
+                            <img class="logo logo-light" alt="Foundry" src="/site/img/logo-light.png" />
+                            <img class="logo logo-dark" alt="Foundry" src="/site/img/logo-dark.png" />
+                        </a>
+                    </div>
+                    <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+                        <i class="ti-menu"></i>
+                    </div>
+                    <div class="module-group right">
+                        <div class="module left">
+                            <ul class="menu">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/site/forum">Forum</a></li>
+                                <li><a href="/site/events">Events</a></li>
+                            </ul>
+                        </div>
+						
+                        <div class="module widget-handle cart-widget-handle left">
+                            <div class="cart" ng-cloak>
+								<a ng-show="profile == null" data-toggle="modal" data-target="#loginModal" href="#" style="color:#fff">Log In</a>
+								<a ng-show="profile != null" href="#" style="color:#fff"><% profile.firstName.toUpperCase() %></a>
+                            </div>
+							
+                        </div>
+                    </div>
+                    <!--end of module group-->
+                </div>
+            </nav>
+        </div>

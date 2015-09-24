@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	    {{>head}}
+		
+    </head>
+	
+    <body ng-app="FullStack360" ng-controller="CourseDescriptionController" ng-init="init()">
+		{{>login}}
+		
+	    {{>nav}}
+		
+		
+        <div class="main-container">
+		
+		  <section class="page-title page-title-4 image-bg overlay parallax">
+                <div class="background-image-holder fadeIn" style="transform: translate3d(0px, 0px, 0px); top:0px; background: url('/site/img/programming.jpg');">
+                    <img alt="Background Image" class="background-image" src="/site/img/programming.jpg" style="display: none;">
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="uppercase mb0">8-Week Node JS Course</h3>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+
+            <section style="border-top:1px solid #ddd;padding-top:0px;padding-bottom:0px">
+                <div class="row-fluid">
+                    <div class="col-md-3 hidden-xs bg-secondary" style="border-right:1px solid #ddd;padding:48px 24px 0px 48px;min-height:2100px">
+                            <div class="widget">
+                                <h6 class="title">Workshops</h6>
+                                <hr>
+                                <ul class="link-list recent-posts">
+                                    <li>
+                                        <a href="/#workshops">MEAN Stack Demo</a>
+                                        <span class="date">Sept 21, 2015</span>
+                                    </li>
+                                    <li>
+                                        <a href="/#workshops">iOS Demo</a>
+                                        <span class="date">Sept 19, 2015</span>
+                                    </li>
+                                    <li>
+                                        <a href="/#workshops">Node JS Crashcourse</a>
+                                        <span class="date">Sept 26-27, 2015</span>
+                                    </li>
+                                    <li>
+                                        <a href="/#workshops">iOS Crashcourse</a>
+                                        <span class="date">Sept 26-27, 2015</span>
+                                    </li>
+                                    <li>
+                                        <a href="/#workshops">8-Week Node JS Course</a>
+                                        <span class="date">Oct 06, 2015</span>
+                                    </li>
+                                    <li>
+                                        <a href="/#workshops">8-Week iOS Course</a>
+                                        <span class="date">Oct 05, 2015</span>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <!--end of widget-->
+
+                    </div>
+
+                    <div class="col-md-9 mb-xs-24">
+                            <div class="post-snippet mb64" style="padding:48px">
+                                <div class="post-title">
+                                    <img align="right" style="width:50%;margin-bottom:24px;margin-right:24px" src="/site/img/nodejs.png" />
+                                    <h4>Node JS Course</h4>
+                                    <ul>
+                                      <li>Oct 6th - Dec 5th</li>
+                                      <li>Tues/Thurs, 6:30pm - 9:00pm</li>
+                                      <li>Sat, 10am - 2pm</li>
+                                      <li>$3,200</li>
+                                    </ul>
+                                </div>
+                                <hr />
+                                <h4>Real World Development</h4>
+                                <p class="lead">
+                                  The 8-week Node JS course takes students through the development of a real-world application from start to finish. We will 
+                                  take a concept submitted from a member of the group and turn it into a fully functioning web app published live for the 
+                                  world to see. After the course, the group can continue building on the product and maybe even create a startup out of it! 
+                                  The member whose idea gets developed throughout the course will be admitted free of charge.
+                                  <br /><br />
+                                  Want to submit your idea for the course? Click the button below:
+                                </p>
+                                <a href="/site/submit-proposal" style="background:#fff;border-radius:22px" class="btn btn-large">Submit Course Proposal</a>
+
+                                <hr />
+                                <h4>What You'll Learn</h4>
+                                <p class="lead">
+                                  <img align="right" style="width:360px;margin-left:24px;margin-bottom:24px" src="/site/img/mean.png" />
+                                  Since we will develop a live, consumer facing application, the course will follow industry best practices in all areas. We will use well-proven tools and technologies such as:
+                                </p>
+                                <ol class="topic-list">
+                                  <li>Node JS</li>
+                                  <li>Express</li>
+                                  <li>Mongo DB</li>
+                                  <li>Angular JS</li>
+                                  <li>Bootstrap</li>
+                                  <li>JavaScript</li>
+                                  <li>REST API</li>
+                                  <li>JSON</li>
+                                  <li>Version Control with Git</li>
+                                  <li>Heroku</li>
+                                </ol>
+
+                                <hr />
+                                <h4>About The Instructor</h4>
+                                <p class="lead">
+                                  <img align="left" style="width:180px;margin-right:24px;border:1px solid #eee" src="/site/img/dankwon.png" />
+                                  Dan Kwon is a full stack developer focusing on building MVPs for early stage startups in New York. As a consultant, Dan 
+                                  worked with several startups and development agencies over a three year span. He specializes in iOS, backend technologies 
+                                  such as Node.js, Google Compute Engine, Heroku, and AWS as well as frontend MVC frameworks such as Angular JS. Dan graduated 
+                                  from Cornell University where he walked to class in the snow, uphill both ways.
+                                </p>
+
+                                <br />
+                                <hr />
+
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <h4>Request More Info</h4>
+                                  <input type="text" ng-model="credentials.name" placeholder="Your Name" />
+                                  <input type="text" ng-model="credentials.email" placeholder="Your Email" />
+                                
+                                  <button ng-click="sendInfoRequest()" style="background:#fff;border-radius:22px" class="btn btn-large">Submit</button>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                </div>
+                              </div>
+
+                            </div>
+                            <!--end of post snippet-->
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+					
+			
+			{{>footer}}
+
+
+        </div>
+		
+		{{>scripts}}
+		
+    </body>
+</html>

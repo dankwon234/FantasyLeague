@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	    {{>head}}
+		
+    </head>
+	
+    <body ng-app="FullStack360" ng-controller="EventsController" ng-init="init()">
+	    {{>login}}
+
+
+        <!-- Workshop Modal -->
+        <div class="modal fade" id="workshopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div style="width:35%;min-width:360px;margin-left:auto;margin-right:auto" class="modal-dialog">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal"><span style="margin-right:5px;" aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div style="background:rgba(249, 249, 249, 0.96);border:1px solid #ddd;padding:32px 16px 0px 16px;min-height:300px;text-align:center">
+					<img style="width:60%" src="/site/img/logo-dark.png" /><br />
+					<hr />
+                    <h3 style="margin-top:30px;text-align:center"><% selectedWorkshop %></h3>
+					I would like to attend the <% selectedWorkshop %>.
+                    <div class="contact-form" style="margin-top:40px;width:90%;margin-left:auto;margin-right:auto">
+                        <input style="background:#fff" ng-model="credentials.name" type="text" placeholder="Name" class="form-control">
+                        <input style="background:#fff" ng-model="credentials.email" type="text" placeholder="Email" class="form-control">
+                    </div>
+                    <div class="row" style="background:#fff;border-top:1px solid #ddd;margin-top:36px;padding-top:24px">
+                          <button style="background:#fff;border-radius:22px" ng-click="sendInfoRequest()" data-toggle="modal" data-target="#workshopModal" type="submit" class="btn btn-large">Submit</button>
+                    </div>
+           	 	</div>
+				
+          	</div>
+          </div>
+        </div>        
+
+	
+	  {{>nav}}
+
+        <div class="main-container">
+		
+		  <section class="page-title page-title-4 image-bg overlay parallax">
+                <div class="background-image-holder fadeIn" style="transform: translate3d(0px, 0px, 0px); top: -100px; background: url('/site/img/cover12.jpg');">
+                    <img alt="Background Image" class="background-image" src="/site/img/cover12.jpg" style="display: none;">
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="uppercase mb0">Events</h3>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <ol class="breadcrumb breadcrumb-2">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/site/events">Events</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!--end of row-->
+                </div>
+                <!--end of container-->
+            </section>
+			
+			<section style="border-top:1px solid #ddd;">
+				<div class="container">
+					
+					<div class="row masonry">
+					
+            			<div class="masonry-item col-md-4 col-sm-6">
+            				<div class="feature bg-secondary p32 pt40 pb40 mb0" style="border:1px solid #ddd">
+            					<h5 style="margin-bottom:8px;" class="mb120 uppercase bold italic">
+								  <a ng-click="openPost(post)" style="color:#337ab7" href="">MEAN STACK DEMO</a>
+								</h5>
+            					<span class="fade-1-4 mb16 display-block">
+								  <i class="fa fa-calendar-check-o"></i> Sept 21, 2015<br />
+								  Ensemble, 32 W 39th Street, NY<br />
+								  6:30pm - 9:00pm<br />
+								  FREE
+								</span>
+								<hr />
+								<p class="mt24" style="height:290px">
+								  <img align="right" style="width:40%;margin-left:12px;border:1px solid #ddd" src="/site/img/mean.png" />
+								  Join us for a quick demo of the MEAN (Mongo, Express, Angular, Node) Stack. In a couple hours, 
+								  we will start a project from scratch and deploy it to Heroku.
+								  <br /><br />
+								  The MEAN stack has been gaining tremendously in popularity during the past few years. Written with 
+								  JavaScript, the MEAN stack will soon sit along side Rails and Django as the dominant web frameworks for startups.
+								</p>
+								<div>
+            					  <a ng-click="selectWorkshop(0)" style="margin-top:6px" data-toggle="modal" data-target="#workshopModal" href="" class="mb0 mt6 btn">Register <i class="ti-arrow-right"></i></a>
+								</div>
+            				</div>
+            			</div>
+
+
+            			<div class="masonry-item col-md-4 col-sm-6">
+            				<div class="feature bg-secondary p32 pt40 pb40 mb0" style="border:1px solid #ddd">
+            					<h5 style="margin-bottom:8px;" class="mb120 uppercase bold italic">
+								  <a ng-click="openPost(post)" style="color:#337ab7" href="">iOS DEMO</a>
+								</h5>
+            					<span class="fade-1-4 mb16 display-block">
+								  <i class="fa fa-calendar-check-o"></i> Sept 28, 2015<br />
+								  Ensemble, 32 W 39th Street, NY<br />
+								  6:30pm - 9:00pm<br />
+								  FREE
+								</span>
+								<hr />
+								<p class="mt24" style="height:290px">
+								  <img align="right" style="width:40%;margin-left:12px;border:1px solid #ddd" src="/site/img/ios.jpg" />
+								  Got an idea for an iPhone app? Learn how to get it started in this short demo for iOS development. 
+								  Using Objective C, we will develop a very simple memory game in which players have to repeat a sequence 
+								  of flashes on the screen in the correct order.
+								</p>
+								<div>
+            					  <a ng-click="selectWorkshop(1)" style="margin-top:6px" data-toggle="modal" data-target="#workshopModal" href="" class="mb0 mt6 btn">Register <i class="ti-arrow-right"></i></a>
+								</div>
+            				</div>
+            			</div>
+						
+						
+            		</div><!--end of row-->
+				</div><!--end of container-->
+			</section>
+			
+			{{>footer}}
+
+        </div>
+		
+		
+		{{>scripts}}
+		
+		<script>
+		  $("#workshopsButton").click(function() {
+		     $('html, body').animate({
+		         scrollTop: $("#workshops").offset().top
+		     }, 500);
+		  });
+		</script>
+    </body>
+</html>

@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+    <head>
+	    {{>head}}
+		
+    </head>
+	
+    <body ng-app="FullStack360" ng-controller="HomeController" ng-init="init()">
+	    {{>login}}
+
+
+        <!-- Workshop Modal -->
+        <div class="modal fade" id="workshopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div style="width:35%;min-width:360px;margin-left:auto;margin-right:auto" class="modal-dialog">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal"><span style="margin-right:5px;" aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div style="background:rgba(249, 249, 249, 0.96);border:1px solid #ddd;padding:32px 16px 0px 16px;min-height:300px;text-align:center">
+					<img style="width:60%" src="/site/img/logo-dark.png" /><br />
+					<hr />
+                    <h3 style="margin-top:30px;text-align:center"><% selectedWorkshop %></h3>
+					Please send me more information about the <% selectedWorkshop %>.
+                    <div class="contact-form" style="margin-top:40px;width:90%;margin-left:auto;margin-right:auto">
+                        <input style="background:#fff" ng-model="credentials.name" type="text" placeholder="Name" class="form-control">
+                        <input style="background:#fff" ng-model="credentials.email" type="text" placeholder="Email" class="form-control">
+                        <input style="background:#fff" ng-model="credentials.password" type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <div class="row" style="background:#fff;border-top:1px solid #ddd;margin-top:36px;padding-top:24px">
+                          <button style="background:#fff" ng-click="sendInfoRequest()" data-toggle="modal" data-target="#workshopModal" type="submit" class="btn btn-large">Send More Info</button>
+                    </div>
+           	 	</div>
+				
+          	</div>
+          </div>
+        </div>        
+
+	
+	  {{>nav}}
+
+        <div class="main-container">
+		
+            <section class="image-square right bg-secondary">
+                <div class="col-md-6 image">
+                    <div class="background-image-holder">
+                        <img alt="image" class="background-image" src="/site/img/class.jpg" />
+                    </div>
+                </div>
+                <div class="col-md-6 content">
+                    <div class="text-right text-left-xs">
+						<h2 class="uppercase bold italic">Become a Full Stack Developer</h2>
+						<p>
+						  Take the jump. Learn to build a full stack - frontend and backend - over a weekend intensive workshop.
+						   We'll build a dynamic website interacting with a server and database. Our instructors will 
+						   guide you through the process from start to finish.
+						</p>
+						<h6 class="uppercase mb8">Free Workshops</h6>
+						<h6 class="uppercase mb8">Weekend Workshops</h6>
+						<h6 class="uppercase mb8">8-Week Workshops</h6>
+						<a class="btn btn-lg mt32 mb0" id="workshopsButton">View Workshops</a>
+					</div>
+                </div>
+            </section>
+			
+					
+            <section id="workshops" style="border-top:1px solid #ddd">
+            	<div class="container">
+            		<div class="row mb80 mb-xs-40">
+            			<div class="col-sm-12 text-center">
+            				<h2 class="bold italic uppercase fade-3-4 mb0">Upcoming Workshops</h2>
+            			</div>
+            		</div><!--end of row-->
+					
+            		<div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="tabbed-content button-tabs">
+                                <ul class="tabs thirds mb64 mb-xs-24">
+                                    <li class="active">
+                                        <div class="tab-title">
+                                            <span>Free</span>
+                                        </div>
+										
+                                        <div class="tab-content text-left">
+											
+                                            <div>
+                                            	<div class="overflow-hidden">
+                                                    <div class="inline-block pull-left">
+														  <img align="right" style="width:240px" src="/site/img/ios.jpg" />
+                                                        <h4 style="margin-bottom:0px;color:#337ab7;">iOS DEMO</h4>
+														<h6 style="line-height:20px">
+														  Sept 28th<span style="margin-left:8px;margin-right:8px">|</span>6:30pm - 9:00pm<br />
+                                                       	  <a target="_blank" href="http://www.letsensemble.com">NYU Poly</a><br />
+                                                          6 MetroTech Roadway, Brooklyn<br />
+														</h6>
+																												  
+														<p style="margin-top:12px;width:60%">
+														    Got an idea for an iPhone app? Learn how to get it started in this 3-hour demo for iOS development. Using
+															Objective C, we will develop a very simple memory game in which players have to repeat a sequence of 
+															flashes on the screen in the correct order.<br /><br />
+															This demo moves quickly and is not meant to be followed along to learn programming. Rather, it is intended
+															to introduce beginners to the basic concepts of iOS development and to explain these concepts as they are being 
+															implemented.
+														</p>
+                                                        <div class="inline-block pull-left pt48 pt-xs-24" style="padding-top:0px">
+                                                    	  <a ng-click="selectWorkshop(1)" class="btn btn-lg" data-toggle="modal" data-target="#workshopModal" href="#">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--end of class-->
+											
+											
+                                                
+                                    	</div><!--end of tab content-->
+                                    </li>
+                                    <li>
+                                        <div class="tab-title">
+                                            <span>Weekend</span>
+                                        </div>
+                                        <div class="tab-content text-left">
+                                        	<div>
+                                            	<div class="overflow-hidden">
+                                                    <div class="inline-block pull-left">
+													    <img align="right" style="width:200px" src="/site/img/node.png" />
+                                                        <h4 style="margin-bottom:0px;color:#337ab7;">Node JS Crashcourse</h4>
+														<h6 style="line-height:20px">
+														  Oct 3, 4<span style="margin-left:8px;margin-right:8px">|</span>10:00am - 6:00pm<br />
+                                                       	  <a taregt="_blank" href="http://letsensemble.com/">Ensemble</a><br />
+                                                          32 West 39th Street, New York, NY<br />
+                                                          4th Floor<br />
+														  $500
+														</h6>
+														
+														<p style="margin-top:12px;">
+															<strong>OVERVIEW</strong><br />
+															Over two full days (8 hours each), we will:<br />
+															1. Develop a site using the Express Framework for Node<br />
+															2. Create dynamic web pages<br />
+															3. Incorporate HTML themes to make your site look professional<br />
+															4. Use JavaScript to enhance the capabilities of your site<br />
+															5. Deploy your site to Heroku to make it live<br />
+															
+															<br />
+															<strong>WHO</strong><br />
+															This workshop is intended for beginners with little to no programming experience. It is not designed to 
+															turn novices into professional programmers. Rather, it is best suited for those who work in tech 
+															(startups, product managers) how wish to gain more than just a basic understanding of technical concepts.
+														</p>
+														
+                                                        <div class="inline-block pull-left pt48 pt-xs-24" style="padding-top:0px">
+                                                    	  <a ng-click="selectWorkshop(2)" class="btn btn-lg" data-toggle="modal" data-target="#workshopModal" href="#">Learn More</a>
+                                                        </div>
+                                                    </div>
+												
+                                                </div>
+                                                <hr class="mt40 mb40 mt-xs-0 mb-xs-24">
+                                            </div><!--end of class-->
+											
+                                            <div>
+                                            	<div class="overflow-hidden">
+                                                    <div class="inline-block pull-left">
+													    <img align="right" style="width:200px" src="/site/img/xcode.png" />
+                                                        <h4 style="margin-bottom:0px;color:#337ab7;">iOS Crashcourse</h4>
+														<h6 style="line-height:20px">
+														  Oct 10, 11<span style="margin-left:8px;margin-right:8px">|</span>10:00am - 6:00pm<br />
+                                                       	  <a taregt="_blank" href="http://letsensemble.com/">Ensemble</a><br />
+                                                          32 West 39th Street, New York, NY<br />
+                                                          4th Floor<br />
+														  $500
+														</h6>
+														
+														<p style="margin-top:12px;">
+															<strong>OVERVIEW</strong><br />
+															Over two full days (8 hours each), we will:<br />
+															1. Develop a simple iOS app<br />
+															2. Use the gps location tools for finding user location<br />
+															3. Leverage Foursquare API for finding nearby restaurants/venues<br />
+															
+															<br />
+															<strong>WHO</strong><br />
+															This workshop is intended for beginners with little to no programming experience. It is not designed to 
+															turn novices into professional programmers. Rather, it is best suited for those who work in tech 
+															(startups, product managers) how wish to gain more than just a basic understanding of technical concepts.
+														</p>
+														
+                                                        <div class="inline-block pull-left pt48 pt-xs-24" style="padding-top:0px">
+                                                    	  <a ng-click="selectWorkshop(3)" class="btn btn-lg" data-toggle="modal" data-target="#workshopModal" href="#">Learn More</a>
+                                                        </div>
+                                                    </div>
+												
+												
+												
+                                                </div>
+                                            </div><!--end of class-->
+                                                
+                                    	</div><!--end of tab content-->
+                                    </li>
+                                    <li>
+                                        <div class="tab-title">
+                                            <span>8-Week</span>
+                                        </div>
+                                        <div class="tab-content text-left">
+                                        	<div>
+                                            	<div class="overflow-hidden">
+                                                    <div class="inline-block pull-left">
+                                                        <h4 style="margin-bottom:0px;color:#337ab7;">8-Week Node JS Course</h4>
+													    <img align="right" style="width:200px" src="/site/img/node.png" />
+														<h6 style="line-height:20px">
+														  Oct 6 - Dec 5<br />
+														  Tues / Thurs, 6:30 - 9:00pm<br />
+														  Sat, 10am - 2pm<br />
+                                                       	  <a taregt="_blank" href="http://letsensemble.com/">Ensemble</a><br />
+                                                          32 West 39th Street, New York, NY<br />
+														  $3,200
+														</h6>
+														
+														<p style="margin-top:12px;">
+															<strong>OVERVIEW</strong><br />
+															The 8-week bootcamp covers:<br />
+															1. Full development of a site with database support and scalable deployment<br />
+															2. Mongo DB, Express Framework, Angular JS, Node JS (MEAN Stack)<br />
+															3. REST API Development<br />
+															4. Frontend design with web templates and Bootstrap<br />
+															5. Frontend Development with Angular<br />
+															6. Full CRUD operation capability from frontend to backend<br />
+															7. Deployment on Heroku and Amazon Web Services<br />
+															
+															<br />
+															<strong>WHO</strong><br />
+															The bootcamp is designed for those who aim to become professional software developers. While no 
+															formal programming background is required, the concepts covered will be intense and those with no 
+															experience will have to dedicate more time in between sessions. By the end of the 8-week course, 
+															students will have a solid foundation to pursue a career in web programming at a junior level. We 
+															will work with students to place them with early stage startups in our network.
+														</p>
+														
+                                                        <div class="inline-block pull-left pt48 pt-xs-24" style="padding-top:0px">
+                                                    	  <a class="btn btn-lg" href="/site/node-course">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr class="mt40 mb40 mt-xs-0 mb-xs-24">
+                                            </div><!--end of class-->
+											
+                                            <div>
+                                            	<div class="overflow-hidden">
+                                                    <div class="inline-block pull-left">
+                                                        <h4 style="margin-bottom:0px;color:#337ab7;">8-Week iOS Course</h4>
+													    <img align="right" style="width:240px;" src="/site/img/ios9.png" />
+														<h6 style="line-height:20px">
+														  Oct 5 - Dec 5<br />
+														  Mon / Weds, 6:30 - 9:00pm<br />
+														  Sat, 3pm - 7pm<br />
+                                                       	  <a taregt="_blank" href="http://letsensemble.com/">Ensemble</a><br />
+                                                          32 West 39th Street, New York, NY<br />
+														  $3,200
+														</h6>
+														
+														<p style="margin-top:12px;">
+															<strong>OVERVIEW</strong><br />
+															The 8-week iOS course is the only one of its kind that develops an actual iOS app which will be submitted
+															and published in the app store. 
+															The 8-week bootcamp covers:<br />
+															1. Full development of a site with database support and scalable deployment<br />
+															2. Mongo DB, Express Framework, Angular JS, Node JS (MEAN Stack)<br />
+															3. REST API Development<br />
+															4. Frontend design with web templates and Bootstrap<br />
+															5. Frontend Development with Angular<br />
+															6. Full CRUD operation capability from frontend to backend<br />
+															7. Deployment on Heroku and Amazon Web Services<br />
+															
+															<br />
+															<strong>WHO</strong><br />
+															The bootcamp is designed for those who aim to become professional software developers. While no 
+															formal programming background is required, the concepts covered will be intense and those with no 
+															experience will have to dedicate more time in between sessions. By the end of the 8-week course, 
+															students will have a solid foundation to pursue a career in web programming at a junior level. We 
+															will work with students to place them with early stage startups in our network.
+														</p>
+														
+                                                        <div class="inline-block pull-left pt48 pt-xs-24" style="padding-top:0px">
+                                                    	  <a ng-click="selectWorkshop(5)" class="btn btn-lg" data-toggle="modal" data-target="#workshopModal" href="#">Learn More</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--end of class-->
+											
+                                                
+                                    	</div><!--end of tab content-->
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--end of button tabs-->
+                        </div>
+                    </div>
+            	</div><!--end of container-->
+            </section>
+			
+			<section class="bg-secondary" style="border-top:1px solid #ddd;">
+				<div class="container">
+					<div class="row mb80 mb-xs-40">
+						<div class="col-sm-12 text-center">
+            				<h2 style="color:#47b475;text-shadow: 1px 1px #222;" class="uppercase bold italic fade-3-4 mb0">MVP Program</h2>
+            			</div>
+					</div><!--end of row-->
+					
+                    <div class="row">
+                        <div class="col-md-6 mb-xs-24">
+                            <div class="post-snippet mb48" style="padding:16px">
+                                <p class="lead">
+								    <img style="width:40%;max-width:360px;margin-right:24px;border:2px solid #fff" align="left" src="/site/img/coworking.png" />
+                                    Got a great idea for a website or startup? The MVP program can turn your idea into a real, functional prototype. The Full Stack uses real ideas for course material in our 8-week programs. By developing actual products, we feel our students gain a better feel for the development process and all that it entails.
+                                    <br /><br />
+                                    All submissions are carefully reviewed for feasibility, potential, and ability of the founding team to execute. If your project is selected for a course, we will develop it free of charge (though we will maintain a small equity share) and your team will be given one spot in the course for free as well. This way, at least one member of your team will have some technical familiarity with the project for ongoing support.
+                                </p>
+                                  <a href="/site/submit-proposal" class="mb0 mt6 btn">Submit Your Proposal <i class="ti-arrow-right"></i></a>
+
+                            </div>
+                        </div>
+                        <!--end of eight col-->
+						
+                        <div class="col-md-6 hidden-sm">
+                            <div class="row masonry">
+                                <div class="masonry-item col-md-6 col-sm-6">
+                                    <div class="feature p32 pt40 pb40 mb0" style="border:1px solid #ddd;background:#fff">
+                                        <h6 class="mb0">Proposal</h6>
+                                        <h5 style="margin-bottom:8px;" class="mb120 uppercase bold italic">
+                                            <a ng-click="openPost(post)" style="color:#337ab7" href="">BEAT THE SPREAD</a>
+                                        </h5>
+                                        <span class="fade-1-4 mb16 display-block">
+                                          Category: Games<br />
+                                          Interface: Website<br />
+                                        </span>
+                                        <hr />
+                                        <p class="mt24" style="min-height:190px">
+                                          Beat the Spread is an easy way to track your performance in sports gambling. By placing make-believe wagers against the 'spread,' you build a track record over time. If your performance is very good, you can then sell your picks for upcoming games.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="masonry-item col-md-6 col-sm-6">
+                                    <div class="feature p32 pt40 pb40 mb0" style="border:1px solid #ddd;background:#fff">
+                                        <h6 class="mb0">Proposal</h6>
+                                        <h5 style="margin-bottom:8px;" class="mb120 uppercase bold italic">
+                                            <a ng-click="openPost(post)" style="color:#337ab7" href="">ANOTHER DATING APP</a>
+                                        </h5>
+                                        <span class="fade-1-4 mb16 display-block">
+                                          Category: Social<br />
+                                          Interface: Mobile<br />
+                                        </span>
+                                        <hr />
+                                        <p class="mt24" style="min-height:190px">
+                                          Tired of getting matches from people who you would never consider actually dating? On our app, everyone has a rating based on their views and matches. You can restrict your own matches only those who have a certain rating. If you don't want to be matched with anyone lower than a rating of 7 out of 10, that can be arranged on our app!
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+							
+                        </div>
+                        <!--end of sidebar-->
+                    </div>
+                    <!--end of container row-->
+					
+					
+				</div><!--end of container-->
+			</section>
+
+			
+			
+			{{>footer}}
+
+        </div>
+		
+		
+		{{>scripts}}
+		
+		<script>
+		  $("#workshopsButton").click(function() {
+		     $('html, body').animate({
+		         scrollTop: $("#workshops").offset().top
+		     }, 500);
+		  });
+		</script>
+    </body>
+</html>
