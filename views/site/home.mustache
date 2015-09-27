@@ -5,57 +5,27 @@
 		
     </head>
 	
-    <body ng-app="FullStack360" ng-controller="HomeController" ng-init="init()">
+    <body ng-app="TheVig" ng-controller="HomeController" ng-init="init()">
 	    {{>login}}
+	    {{>register}}
 
 
-        <!-- Workshop Modal -->
-        <div class="modal fade" id="workshopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div style="width:35%;min-width:360px;margin-left:auto;margin-right:auto" class="modal-dialog">
-            <div class="modal-content">
-              <button type="button" class="close" data-dismiss="modal"><span style="margin-right:5px;" aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <div style="background:rgba(249, 249, 249, 0.96);border:1px solid #ddd;padding:32px 16px 0px 16px;min-height:300px;text-align:center">
-					<img style="width:60%" src="/site/img/logo-dark.png" /><br />
-					<hr />
-                    <h3 style="margin-top:30px;text-align:center"><% selectedWorkshop %></h3>
-					Please send me more information about the <% selectedWorkshop %>.
-                    <div class="contact-form" style="margin-top:40px;width:90%;margin-left:auto;margin-right:auto">
-                        <input style="background:#fff" ng-model="credentials.name" type="text" placeholder="Name" class="form-control">
-                        <input style="background:#fff" ng-model="credentials.email" type="text" placeholder="Email" class="form-control">
-                        <input style="background:#fff" ng-model="credentials.password" type="password" placeholder="Password" class="form-control">
-                    </div>
-                    <div class="row" style="background:#fff;border-top:1px solid #ddd;margin-top:36px;padding-top:24px">
-                          <button style="background:#fff" ng-click="sendInfoRequest()" data-toggle="modal" data-target="#workshopModal" type="submit" class="btn btn-large">Send More Info</button>
-                    </div>
-           	 	</div>
-				
-          	</div>
-          </div>
-        </div>        
-
-	
-	  {{>nav}}
+	  	{{>nav}}
 
         <div class="main-container">
 		
             <section class="image-square right bg-secondary">
                 <div class="col-md-6 image">
                     <div class="background-image-holder">
-                        <img alt="image" class="background-image" src="/site/img/class.jpg" />
+                        <img alt="image" class="background-image" src="/site/img/football.jpg" />
                     </div>
                 </div>
                 <div class="col-md-6 content">
                     <div class="text-right text-left-xs">
-						<h2 class="uppercase bold italic">Become a Full Stack Developer</h2>
-						<p>
-						  Take the jump. Learn to build a full stack - frontend and backend - over a weekend intensive workshop.
-						   We'll build a dynamic website interacting with a server and database. Our instructors will 
-						   guide you through the process from start to finish.
-						</p>
-						<h6 class="uppercase mb8">Free Workshops</h6>
-						<h6 class="uppercase mb8">Weekend Workshops</h6>
-						<h6 class="uppercase mb8">8-Week Workshops</h6>
-						<a class="btn btn-lg mt32 mb0" id="workshopsButton">View Workshops</a>
+						<h2 class="uppercase bold italic">First Round Fantasy</h2>
+						<a class="btn btn-lg mt32 mb0" data-toggle="modal" data-target="#registerModal">Sign Up</a>
+
+
 					</div>
                 </div>
             </section>
@@ -293,77 +263,7 @@
             	</div><!--end of container-->
             </section>
 			
-			<section class="bg-secondary" style="border-top:1px solid #ddd;">
-				<div class="container">
-					<div class="row mb80 mb-xs-40">
-						<div class="col-sm-12 text-center">
-            				<h2 style="color:#47b475;text-shadow: 1px 1px #222;" class="uppercase bold italic fade-3-4 mb0">MVP Program</h2>
-            			</div>
-					</div><!--end of row-->
-					
-                    <div class="row">
-                        <div class="col-md-6 mb-xs-24">
-                            <div class="post-snippet mb48" style="padding:16px">
-                                <p class="lead">
-								    <img style="width:40%;max-width:360px;margin-right:24px;border:2px solid #fff" align="left" src="/site/img/coworking.png" />
-                                    Got a great idea for a website or startup? The MVP program can turn your idea into a real, functional prototype. The Full Stack uses real ideas for course material in our 8-week programs. By developing actual products, we feel our students gain a better feel for the development process and all that it entails.
-                                    <br /><br />
-                                    All submissions are carefully reviewed for feasibility, potential, and ability of the founding team to execute. If your project is selected for a course, we will develop it free of charge (though we will maintain a small equity share) and your team will be given one spot in the course for free as well. This way, at least one member of your team will have some technical familiarity with the project for ongoing support.
-                                </p>
-                                  <a href="/site/submit-proposal" class="mb0 mt6 btn">Submit Your Proposal <i class="ti-arrow-right"></i></a>
 
-                            </div>
-                        </div>
-                        <!--end of eight col-->
-						
-                        <div class="col-md-6 hidden-sm">
-                            <div class="row masonry">
-                                <div class="masonry-item col-md-6 col-sm-6">
-                                    <div class="feature p32 pt40 pb40 mb0" style="border:1px solid #ddd;background:#fff">
-                                        <h6 class="mb0">Proposal</h6>
-                                        <h5 style="margin-bottom:8px;" class="mb120 uppercase bold italic">
-                                            <a ng-click="openPost(post)" style="color:#337ab7" href="">BEAT THE SPREAD</a>
-                                        </h5>
-                                        <span class="fade-1-4 mb16 display-block">
-                                          Category: Games<br />
-                                          Interface: Website<br />
-                                        </span>
-                                        <hr />
-                                        <p class="mt24" style="min-height:190px">
-                                          Beat the Spread is an easy way to track your performance in sports gambling. By placing make-believe wagers against the 'spread,' you build a track record over time. If your performance is very good, you can then sell your picks for upcoming games.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="masonry-item col-md-6 col-sm-6">
-                                    <div class="feature p32 pt40 pb40 mb0" style="border:1px solid #ddd;background:#fff">
-                                        <h6 class="mb0">Proposal</h6>
-                                        <h5 style="margin-bottom:8px;" class="mb120 uppercase bold italic">
-                                            <a ng-click="openPost(post)" style="color:#337ab7" href="">ANOTHER DATING APP</a>
-                                        </h5>
-                                        <span class="fade-1-4 mb16 display-block">
-                                          Category: Social<br />
-                                          Interface: Mobile<br />
-                                        </span>
-                                        <hr />
-                                        <p class="mt24" style="min-height:190px">
-                                          Tired of getting matches from people who you would never consider actually dating? On our app, everyone has a rating based on their views and matches. You can restrict your own matches only those who have a certain rating. If you don't want to be matched with anyone lower than a rating of 7 out of 10, that can be arranged on our app!
-                                        </p>
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-							
-                        </div>
-                        <!--end of sidebar-->
-                    </div>
-                    <!--end of container row-->
-					
-					
-				</div><!--end of container-->
-			</section>
 
 			
 			
