@@ -100,7 +100,14 @@ var updateContest = function(contest, stats){
 
 /* GET home page. */
 router.get('/:resource', function(req, res, next) {
-	
+
+	if (req.params.resource == 'currentuser'){ // check if current user is logged in
+		var controller = controllers['profile'];
+		controller.checkCurrentUser(req, res);
+		return;
+	}
+
+
 	/* This runs through the results of played games and enters the stats into the weekly summary */
 	if (req.params.resource == 'updateweeklysummary'){
 		var week = req.query.week;

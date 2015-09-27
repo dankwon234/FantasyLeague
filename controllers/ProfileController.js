@@ -124,11 +124,43 @@ this.handleLogin = function(req, res, pkg){
 		}
 	
 	
+		req.session.user = profile._id; // install cookie with profile id set to 'user'
 		res.json({'confirmation':'success', 'profile':profile.summary()});
 		return;
 	});
 }
 
+
+this.checkCurrentUser = function(req, res){
+	if (!req.session){
+		res.send({'confirmation':'fail', 'message':'User not logged in.'});
+		return;
+	}
+
+	if (!req.session.user){
+		res.send({'confirmation':'fail', 'message':'User not logged in.'});
+		return;
+	}
+	
+	var userId = req.session.user;
+	console.log('USER '+userId+' LOGGED IN');
+	
+	Profile.findById(userId, function(err, profile){
+		if (err){
+			req.session.reset();
+			res.send({'confirmation':'fail', 'message':'Profile '+userId+' not found'});
+			return;
+		}
+		
+		if (profile==null){
+			res.send({'confirmation':'fail', 'message':'Profile '+userId+' not found'});
+			return;
+		}
+
+		res.json({'confirmation':'success', 'profile':profile.summary()});
+	});
+	
+}
 
 // - - - - - - - - - - - - - - - - - - - - MISC - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
