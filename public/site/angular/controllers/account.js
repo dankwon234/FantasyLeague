@@ -13,7 +13,28 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 		accountService.checkCurrentUser(function(response){
 			if (response.confirmation == 'success')
 				$scope.profile = response.profile;
+
+			fetchProfileGroups();
 			
+		});
+	}
+
+	function fetchProfileGroups(){
+		RestService.query({resource:'group', id:null, 'profiles.id':$scope.profile.id}, function(response) {
+			if (response.confirmation != 'success')
+				return;
+			
+			$scope.profile['groups'] = response.groups;
+			fetchProfileInvitations();
+		});
+	}
+
+	function fetchProfileInvitations(){
+		RestService.query({resource:'group', id:null, 'invited.id':$scope.profile.id}, function(response) {
+			if (response.confirmation != 'success')
+				return;
+			
+			$scope.profile['invited'] = response.groups;
 		});
 	}
 

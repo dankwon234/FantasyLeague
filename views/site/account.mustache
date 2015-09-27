@@ -101,11 +101,8 @@
                                     </thead>
 
                                     <tbody>
-                                      <tr>
-                                        <td>Group 1</td><td>10 members</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Group 2</td><td>6 members</td>
+                                      <tr ng-repeat="group in profile.groups track by $index">
+                                        <td><a href="/site/group/<% group.id %>"><% group.title %></a></td><td><% group.profiles.length %> members</td>
                                       </tr>
                                     </tbody>
                                 </table>
