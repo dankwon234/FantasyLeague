@@ -3,6 +3,7 @@
 var modules = [
 	'HomeModule',
   'AccountModule',
+  'GroupModule',
 	'GeneralServiceModule',
 	'RestServiceModule',
 	'UploadServiceModule',
