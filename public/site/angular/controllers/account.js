@@ -6,6 +6,7 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 	$scope.credentials = {'email':'', 'password':'', 'name':'', 'isPublic':'no'};
 	$scope.loading = false;
 	$scope.group = {'title':'', 'password':''};
+	$scope.currentSection = 'account';
 
 	
 	$scope.init = function(){
