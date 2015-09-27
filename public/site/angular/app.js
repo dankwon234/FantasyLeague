@@ -2,10 +2,7 @@
 
 var modules = [
 	'HomeModule',
-	'ForumModule',
-	'EventsModule',
-	'PostModule',
-	'CourseDescriptionModule',
+  'AccountModule',
 	'GeneralServiceModule',
 	'RestServiceModule',
 	'UploadServiceModule',
