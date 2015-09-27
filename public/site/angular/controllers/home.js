@@ -24,7 +24,13 @@ app.controller('HomeController', ['$scope', 'accountService', 'generalService', 
 	
 	$scope.register = function(){
 		$scope.loading = true;
-		accountService.register($scope.profile, function(response, error){
+
+		var parts = $scope.credentials.name.split(' ');
+		$scope.credentials['firstName'] = parts[0];
+		if (parts.length > 1)
+			$scope.credentials['lastName'] = parts[parts.length-1];
+
+		accountService.register($scope.credentials, function(response, error){
 			if (error != null){
 				$scope.loading = false;
                 alert(error.message);
