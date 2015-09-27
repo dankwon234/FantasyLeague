@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var GroupSchema = new mongoose.Schema({
 	title: {type:String, trim:true, default:''},
-	isPublic: {type:String, trim:true, default:''}, // yes or no
+	isPublic: {type:String, trim:true, default:'no'}, // yes or no
 	admin: {type:String, default:''}, // creator of the group
 	password: {type:String, default:''},
 	image: {type:String, trim:true, default:''},
