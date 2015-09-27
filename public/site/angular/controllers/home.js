@@ -4,8 +4,6 @@ app.controller('HomeController', ['$scope', 'accountService', 'generalService', 
 	$scope['generalService'] = generalService;
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':''};
-	$scope.workshops = ['Mean Stack Demo', 'iOS Demo', 'Node JS Crashcourse', 'iOS Crashcourse', '8-Week Node JS Course', '8-Week iOS Course'];
-	$scope.selectedWorkshop = 'video series';
 	$scope.loading = false;
 
 	
@@ -46,39 +44,10 @@ app.controller('HomeController', ['$scope', 'accountService', 'generalService', 
 				return;
 			}
 			
-			window.location.href = '/site/forum';
+			window.location.href = '/site/account';
 		});
 	}
 	
-	$scope.selectWorkshop = function(index){
-		$scope.selectedWorkshop = $scope.workshops[index];
-	}
-	
-	$scope.sendInfoRequest = function(){
-		if ($scope.credentials.email.length == 0){
-			alert('Please Enter Your Email');
-			return;
-		}
-
-		if ($scope.credentials.email.name == 0){
-			alert('Please Enter Your Name');
-			return;
-		}
-		
-		
-		var body = {'email':$scope.credentials.email, 'password':$scope.credentials.password, 'name':$scope.credentials.name};
-		if ($scope.selectedWorkshop != null)
-			body['workshop'] = $scope.selectedWorkshop;
-		
-		
-		RestService.post({resource:'info', id:null}, body, function(response) {
-			if (response.confirmation != 'success')
-				return;
-			
-			alert(response.message);
-			window.location.href = '/site/events';
-		});
-	}
 	
 	
 	
