@@ -56,6 +56,7 @@ this.handlePost = function(req, res, pkg){
 			return;
 		}
 		
+		req.session.user = profile._id; // install cookie with profile id set to 'user'
 	  	res.json({'confirmation':'success', 'profile':profile.summary()});
 	});
 }
