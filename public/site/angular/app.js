@@ -4,6 +4,7 @@ var modules = [
 	'HomeModule',
   'AccountModule',
   'GroupModule',
+  'NFLPlayersModule',
 	'GeneralServiceModule',
 	'RestServiceModule',
 	'UploadServiceModule',
