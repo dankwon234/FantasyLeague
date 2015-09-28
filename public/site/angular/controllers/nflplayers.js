@@ -55,16 +55,24 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 	}
 	
 	$scope.addPlayer = function(player){
-		console.log('ADD PLAYER: '+JSON.stringify(player));
-		$scope.group.rosters[$scope.profile.id].roster.push(player.id);
+		$scope.group.rosters[$scope.profile.id].roster.push(player.fantasyPlayerKey);
 
+		var roster = $scope.group.rosters[$scope.profile.id];
+		console.log('ADD PLAYER: '+JSON.stringify(roster));
+
+		RestService.put({resource:'updateroster', id:$scope.group.id}, {'roster':roster}, function(response) {
+			console.log(JSON.stringify(response));
+			if (response.confirmation != 'success')
+				return;
+
+		});
 
 	}
 	
 
 	$scope.dropPlayer = function(player){
 		console.log('DROP PLAYER: '+JSON.stringify(player));
-		var index = $scope.group.rosters[$scope.profile.id].roster.indexOf(player.id);
+		var index = $scope.group.rosters[$scope.profile.id].roster.indexOf(player.fantasyPlayerKey);
 		if (index == -1)
 			return;
 

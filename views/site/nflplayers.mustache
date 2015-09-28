@@ -87,8 +87,8 @@
                                             <td><% player.position.toUpperCase() %></td>
                                             <td>$<% player.value %></td>
                                             <td>
-                                                <a ng-click="addPlayer(player)" ng-show="group.rosters[profile.id].roster.indexOf(player.id) == -1" href="">ADD</a>
-                                                <a ng-click="dropPlayer(player)" ng-show="group.rosters[profile.id].roster.indexOf(player.id) != -1" style="color:red" href="">DROP</a>
+                                                <a ng-click="addPlayer(player)" ng-show="group.rosters[profile.id].roster.indexOf(player.fantasyPlayerKey) == -1" href="">ADD</a>
+                                                <a ng-click="dropPlayer(player)" ng-show="group.rosters[profile.id].roster.indexOf(player.fantasyPlayerKey) != -1" style="color:red" href="">DROP</a>
                                             </td>
                                           </tr>
                                         </tbody>
