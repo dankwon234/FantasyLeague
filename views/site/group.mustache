@@ -126,8 +126,8 @@
                                                             </thead>
 
                                                             <tbody>
-                                                              <tr ng-repeat="member in group.profiles track by $index">
-                                                                <td><% member.fullName %></td><td>10 members</td>
+                                                              <tr ng-repeat="invitee in group.invited track by $index">
+                                                                <td><% invitee.name %></td><td>10 members</td>
                                                               </tr>
                                                             </tbody>
                                                         </table>
