@@ -92,7 +92,6 @@
 
                             <div ng-show="currentSection=='groups'" class="post-snippet mb64" style="padding:48px">
                                 <h4>Groups</h4>
-
                                 <table class="table table-striped">
                                     <thead>
                                       <tr>
@@ -113,20 +112,18 @@
 
                             <div ng-show="currentSection=='invitations'" class="post-snippet mb64" style="padding:48px">
                                 <h4>Invitations</h4>
-
                                 <table class="table table-striped">
                                     <thead>
                                       <tr>
-                                        <td>Name</td><td>Members</td>
+                                        <td>Name</td><td>Members</td><td>&nbsp;</td>
                                       </tr>
                                     </thead>
 
                                     <tbody>
-                                      <tr>
-                                        <td>Group 1</td><td>10 members</td>
-                                      </tr>
-                                      <tr>
-                                        <td>Group 2</td><td>6 members</td>
+                                      <tr ng-repeat="group in profile.invited track by $index">
+                                        <td><% group.title %></td>
+                                        <td><% group.profiles.length %> members</td>
+                                        <td><a ng-click="joinGroup(group)" class="btn btn-large" href="">Join</a></td>
                                       </tr>
                                     </tbody>
 
