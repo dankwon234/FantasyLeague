@@ -419,6 +419,11 @@ router.put('/:resource/:id', function(req, res, next) {
 		groupController.invite(req, res, null);
 		return;
 	}
+
+	if (resource == 'updateroster'){
+		groupController.updateRoster(req, res, null);
+		return;
+	}
 	
 	var controller = controllers[resource];
 	if (controller == null){

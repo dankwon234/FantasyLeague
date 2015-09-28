@@ -57,7 +57,6 @@ this.handlePost = function(req, res, pkg){
 // - - - - - - - - - - - - - - - - - - - - PUT HANDLER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 this.handlePut = function(req, res, pkg) {
-	
 	Group.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, group){
 		if (err){
 			res.json({'confirmation':'fail', 'message':err.message});
@@ -69,6 +68,51 @@ this.handlePut = function(req, res, pkg) {
 	});
 }
 
+this.updateRoster = function(req, res, pkg) {
+	if (!req.session){
+		res.send({'confirmation':'fail', 'message':'User not logged in.'});
+		return;
+	}
+
+	if (!req.session.user){
+		res.send({'confirmation':'fail', 'message':'User not logged in.'});
+		return;
+	}
+	
+	var userId = req.session.user;
+	var groupId = req.params.id;
+
+	Group.findById(groupId, function(err, group){
+		if (err){
+			res.json({'confirmation':'fail', 'message':'Group '+groupId+' not found'});
+			return;
+		}
+		
+		if (group == null){
+			res.json({'confirmation':'fail', 'message':'Group '+groupId+' not found'});
+			return;
+		}
+		
+		var roster = req.body.roster;
+		group.rosters[userId] = roster;
+		group.markModified('rosters'); // EXTREMELY IMPORTANT: In Mongoose, 'mixed' object properties don't save automatically - you have to mark them as modified:
+
+		console.log('UPDATE ROSTER: '+JSON.stringify(group));
+		
+		group.save(function(err, group){
+			if (err){
+				res.json({'confirmation':'fail', 'message':err.message});
+				return;
+			}
+			
+			res.json({'confirmation':'success', 'group':group.summary()});
+			return;
+		});
+
+	});
+	return;
+
+}
 
 this.invite = function(req, res, pkg) {
 	var groupId = req.body.group;
