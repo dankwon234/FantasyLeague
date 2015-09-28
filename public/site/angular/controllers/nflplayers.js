@@ -56,17 +56,8 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 	
 	$scope.addPlayer = function(player){
 		$scope.group.rosters[$scope.profile.id].roster.push(player.fantasyPlayerKey);
-
 		var roster = $scope.group.rosters[$scope.profile.id];
-		console.log('ADD PLAYER: '+JSON.stringify(roster));
-
-		RestService.put({resource:'updateroster', id:$scope.group.id}, {'roster':roster}, function(response) {
-			console.log(JSON.stringify(response));
-			if (response.confirmation != 'success')
-				return;
-
-		});
-
+		updateRoster();
 	}
 	
 
@@ -77,7 +68,17 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 			return;
 
 		$scope.group.rosters[$scope.profile.id].roster.splice(index, 1);
+		updateRoster();
+	}
 
+	function updateRoster(){
+		var roster = $scope.group.rosters[$scope.profile.id];
+		RestService.put({resource:'updateroster', id:$scope.group.id}, {'roster':roster}, function(response) {
+			console.log(JSON.stringify(response));
+			if (response.confirmation != 'success')
+				return;
+
+		});
 	}
 
 	$scope.login = function(){
