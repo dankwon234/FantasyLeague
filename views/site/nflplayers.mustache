@@ -86,7 +86,10 @@
                                             <td><% player.team.toUpperCase() %></td>
                                             <td><% player.position.toUpperCase() %></td>
                                             <td>$<% player.value %></td>
-                                            <td><a href="">ADD</a><a href="">DROP</a></td>
+                                            <td>
+                                                <a ng-click="addPlayer(player)" ng-show="group.rosters[profile.id].roster.indexOf(player.id) == -1" href="">ADD</a>
+                                                <a ng-click="dropPlayer(player)" ng-show="group.rosters[profile.id].roster.indexOf(player.id) != -1" style="color:red" href="">DROP</a>
+                                            </td>
                                           </tr>
                                         </tbody>
                                     </table>

@@ -44,10 +44,34 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 				return;
 
 			$scope.group = response.group;
+			if ($scope.group.rosters[$scope.profile.id] == null)
+				$scope.group.rosters[$scope.profile.id] = {'roster':[], 'profile':{'id':$scope.profile.id, 'firstName':$scope.profile.firstName, 'lastName':$scope.profile.lastName, 'username':$scope.profile.username}};
+
+
+
+
+
 		});
 	}
 	
+	$scope.addPlayer = function(player){
+		console.log('ADD PLAYER: '+JSON.stringify(player));
+		$scope.group.rosters[$scope.profile.id].roster.push(player.id);
+
+
+	}
 	
+
+	$scope.dropPlayer = function(player){
+		console.log('DROP PLAYER: '+JSON.stringify(player));
+		var index = $scope.group.rosters[$scope.profile.id].roster.indexOf(player.id);
+		if (index == -1)
+			return;
+
+		$scope.group.rosters[$scope.profile.id].roster.splice(index, 1);
+
+	}
+
 	$scope.login = function(){
 		$scope.loading = true;
 		accountService.login($scope.credentials, function(response, error){
