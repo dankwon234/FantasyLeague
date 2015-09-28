@@ -38,6 +38,48 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 		});
 	}
 
+	$scope.joinGroup = function(group){
+		var fullName = $scope.profile.firstName+' '+$scope.profile.lastName;
+		var profileEntry = {'id':$scope.profile.id, 'email':$scope.profile.email, 'firstName':$scope.profile.firstName, 'lastName':$scope.profile.lastName, 'fullName':fullName};
+		if ($scope.profile.phone.length > 0)
+			profileEntry['phoneNumber'] = $scope.profile.phone;
+
+		group.profiles.push(profileEntry);
+		var updated = [];
+		for (var i=0; i<group.invited.length; i++){
+			var invitee = group.invited[i];
+			console.log('INVITEE: '+JSON.stringify(invitee.name));
+			if (invitee.email == $scope.profile.email)
+				continue;
+
+			else if (invitee.phone.length>0 && invitee.phone == $scope.profile.phone)
+				continue;
+
+			else
+				updated.push(invitee);
+		}
+
+		group['invited'] = updated;
+
+		var index = $scope.profile.invited.indexOf(group);
+		if (index != -1)
+			$scope.profile.invited.splice(index, 1);
+		
+
+		console.log('JOIN GROUP: '+JSON.stringify(group));
+		$scope.loading = true;
+		RestService.put({resource:'group', id:group.id}, group, function(response) {
+		$scope.loading = false;
+			console.log(JSON.stringify(response));
+			if (response.confirmation != 'success'){
+				alert(response.message);
+				return;
+			}
+
+			window.location.href = '/site/group/'+response.group.id;
+		});
+	}
+
 	
 	
 	$scope.createGroup = function(){
@@ -53,7 +95,11 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 
 		$scope.group['admin'] = $scope.profile.id;
 		var fullName = $scope.profile.firstName+' '+$scope.profile.lastName;
-		$scope.group['profiles'] = [{'id':$scope.profile.id, 'firstName':$scope.profile.firstName, 'lastName':$scope.profile.lastName, 'fullName':fullName}];
+		var profileEntry = {'id':$scope.profile.id, 'email':$scope.profile.email, 'firstName':$scope.profile.firstName, 'lastName':$scope.profile.lastName, 'fullName':fullName};
+		if ($scope.profile.phone.length > 0)
+			profileEntry['phoneNumber'] = $scope.profile.phone;
+
+		$scope.group['profiles'] = [profileEntry];
 
 		console.log('CREATE GROUP: '+JSON.stringify($scope.group));
 		RestService.post({resource:'group', id:null}, $scope.group, function(response) {
