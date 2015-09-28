@@ -30,7 +30,7 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 	}
 
 	function fetchProfileInvitations(){
-		RestService.query({resource:'group', id:null, 'invited.id':$scope.profile.id}, function(response) {
+		RestService.query({resource:'group', id:null, 'invited.email':$scope.profile.email}, function(response) {
 			if (response.confirmation != 'success')
 				return;
 			
