@@ -69,8 +69,10 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 				return;
 			}
 
+			$scope.group['invited'] = response.group.invited;
 			$scope.invitee = {'name':'', 'email':'', 'phone':''};
 			alert('Invitation Sent!');
+			document.getElementById('inviteButton').click();
 		});
 	}
 
