@@ -26,7 +26,7 @@ this.handleGet = function(req, res, pkg){
 	
 	
 	/* Query by filters passed into parameter string: */
-	NFLPlayer.find(req.query, null, {sort: {timestamp: -1}}, function(err, players) {
+	NFLPlayer.find(req.query, null, {sort: {value: -1}}, function(err, players) {
 		console.log('FETCH NFLPlayers');
 		if (err) {
 			res.json({'confirmation':'fail', 'message':err.message});
