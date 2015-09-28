@@ -154,20 +154,20 @@
                             <div ng-show="currentSection=='roster'" class="post-snippet mb64" style="padding:48px">
                                 <h4>Roster</h4>
 
-                                    <table class="table table-striped">
-                                        <thead>
-                                          <tr>
-                                            <td>Name</td><td>Rank</td>
-                                          </tr>
-                                        </thead>
+                                <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <td>Name</td><td>Rank</td>
+                                      </tr>
+                                    </thead>
 
-                                        <tbody>
-                                          <tr>
-                                            <td>Player 1</td><td>$100</td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                    <a href="/site/nflplayers?group=<% group.id %>" style="background:#fff" type="submit" class="btn btn-large">Manage Roster</a>
+                                    <tbody>
+                                      <tr ng-repeat="player in group.rosters[profile.id].roster">
+                                        <td><% player %></td><td>$100</td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                                <a href="/site/nflplayers?group=<% group.id %>" style="background:#fff" type="submit" class="btn btn-large">Manage Roster</a>
 
                             </div>
                             <!--end of post snippet-->
