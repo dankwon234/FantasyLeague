@@ -73,6 +73,9 @@
                     <div class="col-md-9 mb-xs-24">
                             <div ng-show="currentSection=='all'" class="post-snippet mb64" style="padding:48px">
                                 <h4>All Players</h4>
+                                    Page: 
+                                    <a style="margin-left:8px" ng-repeat="page in pages track by $index" ng-click="loadPlayers($index)" href=""><% page %></a>
+                                    <br /><br />
                                     <table class="table table-striped">
                                         <thead>
                                           <tr>
@@ -82,7 +85,7 @@
 
                                         <tbody>
                                           <tr ng-repeat="player in visiblePlayers track by $index">
-                                            <td><% generalService.capitalize(player.fullName) %></td>
+                                            <td><% player.index+1 %>. <% generalService.capitalize(player.fullName) %></td>
                                             <td><% player.team.toUpperCase() %></td>
                                             <td><% player.position.toUpperCase() %></td>
                                             <td>$<% player.value %></td>
@@ -94,7 +97,7 @@
                                         </tbody>
                                     </table>
                                     Page: 
-                                    <a style="margin-left:6px" ng-repeat="page in pages track by $index" ng-click="loadPlayers($index)" href=""><% page %></a>
+                                    <a style="margin-left:8px" ng-repeat="page in pages track by $index" ng-click="loadPlayers($index)" href=""><% page %></a>
 
                             </div>
 

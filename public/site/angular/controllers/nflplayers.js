@@ -7,7 +7,7 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 	$scope.loading = false;
 
 	$scope.pages = [];
-	$scope.players = null;
+	$scope.players = [];
 	$scope.visiblePlayers = [];
 	$scope.currentSection = 'all';
 	$scope.group = null;
@@ -22,7 +22,15 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 				if (response.confirmation != 'success')
 					return;
 				
-				$scope.players = response.players;
+				for (var i=0; i<response.players.length; i++){
+					var player = response.players[i];
+					if (player.value == 0)
+						continue;
+
+					player['index'] = i;
+					$scope.players.push(player);
+				}
+
 				for (var i=0; i<$scope.players.length; i++){
 					if (i < 20)
 						$scope.visiblePlayers.push($scope.players[i]);
@@ -53,7 +61,7 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 		var index = page * 20;
 		var max = index+20;
 		if (max >= $scope.players.length)
-			max = scope.players.length;
+			max = $scope.players.length;
 
 		$scope.visiblePlayers = [];
 		for (var i=index; i<max; i++)
