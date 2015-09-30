@@ -5,7 +5,10 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':''};
 	$scope.loading = false;
+
+	$scope.pages = [];
 	$scope.players = null;
+	$scope.visiblePlayers = [];
 	$scope.currentSection = 'all';
 	$scope.group = null;
 
@@ -20,6 +23,15 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 					return;
 				
 				$scope.players = response.players;
+				for (var i=0; i<$scope.players.length; i++){
+					if (i < 20)
+						$scope.visiblePlayers.push($scope.players[i]);
+
+					if (i % 20 == 0){
+						$scope.pages.push(i/20 + 1);
+					}
+				}
+
 				if ($scope.profile == null)
 					return;
 
@@ -37,6 +49,18 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 		});
 	}
 
+	$scope.loadPlayers = function(page){
+		var index = page * 20;
+		var max = index+20;
+		if (max >= $scope.players.length)
+			max = scope.players.length;
+
+		$scope.visiblePlayers = [];
+		for (var i=index; i<max; i++)
+			$scope.visiblePlayers.push($scope.players[i]);
+	}
+
+
 	function fetchGroup(groupId){
 		RestService.query({resource:'group', id:groupId}, function(response) {
 			console.log(JSON.stringify(response));
@@ -46,11 +70,6 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 			$scope.group = response.group;
 			if ($scope.group.rosters[$scope.profile.id] == null)
 				$scope.group.rosters[$scope.profile.id] = {'roster':[], 'profile':{'id':$scope.profile.id, 'firstName':$scope.profile.firstName, 'lastName':$scope.profile.lastName, 'username':$scope.profile.username}};
-
-
-
-
-
 		});
 	}
 	

@@ -81,7 +81,7 @@
                                         </thead>
 
                                         <tbody>
-                                          <tr ng-repeat="player in players track by $index">
+                                          <tr ng-repeat="player in visiblePlayers track by $index">
                                             <td><% generalService.capitalize(player.fullName) %></td>
                                             <td><% player.team.toUpperCase() %></td>
                                             <td><% player.position.toUpperCase() %></td>
@@ -93,6 +93,8 @@
                                           </tr>
                                         </tbody>
                                     </table>
+                                    Page: 
+                                    <a style="margin-left:6px" ng-repeat="page in pages track by $index" ng-click="loadPlayers($index)" href=""><% page %></a>
 
                             </div>
 
