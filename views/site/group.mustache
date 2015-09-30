@@ -71,19 +71,66 @@
                     <div class="col-md-9 mb-xs-24">
                             <div ng-show="currentSection=='matchups'" class="post-snippet mb64" style="padding:48px">
                                 <h4>Matchups</h4>
-                                    <table class="table table-striped">
-                                        <thead>
-                                          <tr>
-                                            <td>Name</td><td>Rank</td>
-                                          </tr>
-                                        </thead>
 
-                                        <tbody>
-                                          <tr>
-                                            <td>Group 1</td><td>10 members</td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tabbed-content text-tabs">
+                                            <ul class="tabs halves mb64 mb-xs-24">
+                                                <li class="active">
+                                                    <div class="tab-title"><span>Current</span></div>
+                                                    
+                                                    <div class="tab-content text-left">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                              <tr>
+                                                                <td>Name</td><td>Status</td><td>Entry</td>
+                                                              </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                              <tr>
+                                                                <td>Group 1</td><td>Open</td><td>Free</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td>Group 1</td><td>Pending</td><td>$5</td>
+                                                              </tr>
+                                                              <tr>
+                                                                <td>Group 1</td><td>Pending</td><td>$20</td>
+                                                              </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                    </div><!--end of tab content-->
+                                                </li>
+                                                <li>
+                                                    <div class="tab-title"><span>History</span></div>
+                                                    <div class="tab-content text-left">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                              <tr>
+                                                                <td>Name</td><td>Rank</td>
+                                                              </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                              <tr ng-repeat="invitee in group.invited track by $index">
+                                                                <td><% invitee.name %></td><td>10 members</td>
+                                                              </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        
+                                                        <button id="inviteButton" style="background:#fff" data-toggle="modal" data-target="#inviteModal" type="submit" class="btn btn-large">Invite Member</button>
+                                                            
+                                                    </div><!--end of tab content-->
+                                                </li>
+                                                <li>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!--end of button tabs-->
+                                    </div>
+                                </div>
+
 
                             </div>
 
@@ -102,7 +149,7 @@
                                                         <table class="table table-striped">
                                                             <thead>
                                                               <tr>
-                                                                <td>Name</td><td>Rank</td>
+                                                                <td>Name</td><td>Value</td>
                                                               </tr>
                                                             </thead>
 
@@ -162,8 +209,9 @@
                                     </thead>
 
                                     <tbody>
-                                      <tr ng-repeat="player in group.rosters[profile.id].roster">
-                                        <td><% player %></td><td>$100</td>
+                                      <tr ng-repeat="playerId in group.rosters[profile.id].roster track by $index">
+                                        <td><% generalService.capitalize(players[playerId].fullName) %></td>
+                                        <td>$<% generalService.formattedNumber(players[playerId].value) %></td>
                                       </tr>
                                     </tbody>
                                 </table>

@@ -8,6 +8,7 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 	$scope.group = null;
 	$scope.currentSection = 'matchups';
 	$scope.invitee = {'name':'', 'email':'', 'phone':''};
+	$scope.players = {};
 
 	
 	$scope.init = function(){
@@ -30,10 +31,33 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 				}
 
 				$scope.group = response.group;
+				fetchRosterPlayers();
+			});
+		});
+	}
+
+	function fetchRosterPlayers(){
+		var roster = $scope.group.rosters[$scope.profile.id]['roster'];
+		for (var i=0; i<roster.length; i++){
+			var key = roster[i];
+			console.log('PLAYER KEY: '+key);
+
+			RestService.query({resource:'nflplayer', id:null, fantasyPlayerKey:key}, function(response) {
+				console.log(JSON.stringify(response));
+				if (response.confirmation != 'success'){
+					alert(response.message);
+					return;
+				}
+
+				var player = response.players[0];
+				$scope.players[player.fantasyPlayerKey] = player;
 			});
 
-			
-		});
+
+		}
+
+
+
 	}
 
 	$scope.invite = function(){
