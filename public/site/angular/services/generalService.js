@@ -34,6 +34,9 @@ generalService.factory('generalService', [function(){
         return capitalizedString;
     }
 
+    manager.formattedNumber = function(num){
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
     
 	
     manager.formattedDate = function(dateStr) {
