@@ -36,21 +36,29 @@ this.handleGet = function(req, res, pkg){
 		var unexpired = new Array();
 		var expired = new Array();
 		var now = new Date();
-		for (var i=0; i<contests.length; i++){
-			var contest = contests[i];
-			if (now >= contest.expires){  // contest expired
-				if (contest.participants.length == 1) // not enough participants
-					expired.push(contest);
-				else
-					unexpired.push(contest);
-			}
-			else 
-				unexpired.push(contest);
-		}
+
+		// temporarily removed for testing:
+
+		// for (var i=0; i<contests.length; i++){
+		// 	var contest = contests[i];
+		// 	if (now >= contest.expires){  // contest expired
+		// 		if (contest.participants.length < contest.minEntries) // not enough participants
+		// 			expired.push(contest);
+		// 		else
+		// 			unexpired.push(contest);
+		// 	}
+		// 	else 
+		// 		unexpired.push(contest);
+		// }
 		
+		// temporary: remove after testing
+		for (var i=0; i<contests.length; i++) {
+			var contest = contests[i];
+			unexpired.push(contest);
+		}
+
 		var response = {'confirmation':'success', 'contests':convertToJson(unexpired)};
 	    var json = JSON.stringify(response, null, 2); // this makes the json 'pretty' by indenting it
-		
 		
 	    res.setHeader('content-type', 'application/json');
 	    res.send(json);
