@@ -47,6 +47,8 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 				for (var i=0; i<gameIds.length; i++){
 					var game = games[gameIds[i]];
 					var gameTime = new Date(game.Date);
+
+					// Temporarily removed. restore after testing.
 					// if (gameTime < now) // this game already started, not eligible
 					// 	continue
 					
