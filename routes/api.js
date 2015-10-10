@@ -306,7 +306,7 @@ router.get('/:resource', function(req, res, next) {
 		
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2015REG/'+week;
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/Schedules/2015REG';
-		var endpoint = 'https://api.fantasydata.net/nfl/v2/JSON/GameStatsByWeek/2015REG/'+week;
+		var endpoint = 'https://api.fantasydata.net/nfl/v2/JSON/PlayerGameStatsByWeek/2015REG/'+week;
  
 		var options = {
 			url: endpoint,
