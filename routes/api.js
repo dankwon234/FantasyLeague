@@ -116,7 +116,7 @@ router.get('/:resource', function(req, res, next) {
 			return;
 		}
 		
-		fs.readFile('public/resources/2015week'+week+'.json', 'utf8', function (err, data) {
+		fs.readFile('public/resources/nfl/2015week'+week+'.json', 'utf8', function (err, data) {
 			if (err){
 				res.json({'confirmation':'fail', 'message':err.message});
 				return;
@@ -360,7 +360,7 @@ router.get('/:resource', function(req, res, next) {
 
 	// This creates all offensive position nfl players from a static file:
 	if (req.params.resource == 'nflroster'){
-		fs.readFile('public/resources/nflplayers.json', 'utf8', function (err, data) {
+		fs.readFile('public/resources/nfl/nflplayers.json', 'utf8', function (err, data) {
 		  if (err) {
 	  		res.send({'confirmation':'fail', 'message':err.message});
 			return;
