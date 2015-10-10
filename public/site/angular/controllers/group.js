@@ -47,8 +47,8 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 				for (var i=0; i<gameIds.length; i++){
 					var game = games[gameIds[i]];
 					var gameTime = new Date(game.Date);
-					if (gameTime < now) // this game already started, not eligible
-						continue
+					// if (gameTime < now) // this game already started, not eligible
+					// 	continue
 					
 					$scope.contest.eligibleTeams.push(game.HomeTeam.toLowerCase());
 					$scope.contest.eligibleTeams.push(game.AwayTeam.toLowerCase());
