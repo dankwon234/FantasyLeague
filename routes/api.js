@@ -304,14 +304,13 @@ router.get('/:resource', function(req, res, next) {
 			return;
 		}
 		
-		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2015PRE/'+week;
-//		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByTeam/2014REG/5/NYG';
+//		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/PlayerGameStatsByWeek/2015REG/'+week;
 //		var endpoint = 'http://api.nfldata.apiphany.com/nfl/v2/JSON/Schedules/2015REG';
-
+		var endpoint = 'https://api.fantasydata.net/nfl/v2/JSON/GameStatsByWeek/2015REG/'+week;
  
 		var options = {
-		  url: endpoint,
-		  headers: { 'Ocp-Apim-Subscription-Key': '4399b4154eba468985945039d762b59b' }
+			url: endpoint,
+			headers: { 'Ocp-Apim-Subscription-Key': '73172b56e4b442e8a0bf91a472c82654' }
 		};
  
 		request(options, function callback(error, response, body) {
@@ -333,7 +332,32 @@ router.get('/:resource', function(req, res, next) {
 	}
 	
 	
-	
+	if (req.params.resource == 'players'){
+		var endpoint = 'https://api.fantasydata.net/nfl/v2/JSON/DailyFantasyPlayers/2015';
+
+		var options = {
+			url: endpoint,
+			headers: { 'Ocp-Apim-Subscription-Key': '73172b56e4b442e8a0bf91a472c82654' }
+		};
+ 
+		request(options, function callback(error, response, body) {
+			if (error){
+				console.log('ERROR: '+error.message);
+				return;
+			}
+			
+			if (response.statusCode == 200) {
+				var info = JSON.parse(body);
+	  		    var json = JSON.stringify(info, null, 2); // this makes the json 'pretty' by indenting it
+				
+	  		    res.setHeader('content-type', 'application/json');
+	  		    res.send(json);
+			}
+		});		
+		
+		return;
+	}
+
 	/*
 	// This creates all offensive position nfl players from a static file:
 	if (req.params.resource == 'nflroster'){
