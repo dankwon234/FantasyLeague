@@ -39,26 +39,47 @@
                     <img style="width:60%" src="/site/img/logo-dark.png" /><br /><br />
                     <hr />
                     <h4 style="margin-top:10px;text-align:center">Create Contest</h4>
-                    <div class="row" style="margin-top:20px;width:90%;margin-left:auto;margin-right:auto">
-                        <h5 style="margin-bottom:0px">Buy In</h5>
-                        <div class="col-md-4">
-                          <input style="margin-right:8px" type="radio" name="buyIn"> Free
+                    <div class="row" style="margin-top:20px;width:90%;margin-left:auto;margin-right:auto;text-align:left">
+                        <div class="col-md-3">
+                          <h5 style="margin-bottom:0px">Entry</h5>
                         </div>
-                        <div class="col-md-4">
-                          <input style="margin-right:8px" type="radio" name="buyIn"> $5
+                        <div class="col-md-3">
+                          <input ng-change="updateContestDescription()" ng-model="contest.buyIn" value="0" style="margin-right:8px" type="radio" name="buyIn"> Free
                         </div>
-                        <div class="col-md-4">
-                          <input style="margin-right:8px" type="radio" name="buyIn"> $20
+                        <div class="col-md-3">
+                          <input ng-change="updateContestDescription()" ng-model="contest.buyIn" value="5" style="margin-right:8px" type="radio" name="buyIn"> $5
+                        </div>
+                        <div class="col-md-3">
+                          <input ng-change="updateContestDescription()" ng-model="contest.buyIn" value="20" style="margin-right:8px" type="radio" name="buyIn"> $20
                         </div>
                     </div>
 
-                    <div style="background:#f1f9f5;border:1px solid #ddd;margin-top:36px;min-height:64px;padding:16px">
-                        aefawef awef awef ae fawef awef aw efa wef awef aw ef wefawef awef 
+                    <br />
+                    <div class="row" style="text-align:left">
+                        <div class="col-md-6">
+                            <h5 style="margin-bottom:0px">Minimum Entries:</h5>
+                        </div>
+
+                        <div class="col-md-6">
+                            <select ng-model="contest.minEntries" ng-change="updateContestDescription()" class="form-control">
+                                <option value="2">2</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div style="background:#f1f9f5;border:1px solid #ddd;min-height:64px;padding:16px">
+                        <strong><% contestDescription %></strong> 
                     </div>
 
 
                     <div class="row" style="background:#fff;border-top:1px solid #ddd;margin-top:36px;padding-top:24px">
-                        <button style="background:#fff" type="submit" class="btn btn-large">Create</button>
+                        <button ng-click="createContest()" style="background:#fff" type="submit" class="btn btn-large">Create</button>
                     </div>
                 </div>
                 
@@ -118,19 +139,15 @@
                                                         <table class="table table-striped">
                                                             <thead>
                                                               <tr>
-                                                                <td>Name</td><td>Status</td><td>Entry</td>
+                                                                <td>Week</td><td>Status</td><td>Num Entries</td>
                                                               </tr>
                                                             </thead>
 
                                                             <tbody>
-                                                              <tr>
-                                                                <td>Group 1</td><td>Open</td><td>Free</td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td>Group 1</td><td>Pending</td><td>$5</td>
-                                                              </tr>
-                                                              <tr>
-                                                                <td>Group 1</td><td>Pending</td><td>$20</td>
+                                                              <tr ng-repeat="contest in group.contests track by $index">
+                                                                <td>Week <% contest.week %></td>
+                                                                <td><% contest.state %></td>
+                                                                <td><% contest.entries.length %></td>
                                                               </tr>
                                                             </tbody>
                                                         </table>
@@ -150,8 +167,8 @@
                                                             </thead>
 
                                                             <tbody>
-                                                              <tr ng-repeat="invitee in group.invited track by $index">
-                                                                <td><% invitee.name %></td><td>10 members</td>
+                                                              <tr>
+                                                                <td>Group 1</td><td>Open</td><td>Free</td>
                                                               </tr>
                                                             </tbody>
                                                         </table>
