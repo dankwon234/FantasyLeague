@@ -28,7 +28,31 @@
                 
             </div>
           </div>
-        </div>        
+        </div>
+
+
+
+        <!-- Lineup Modal -->
+        <div class="modal fade" id="lineupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div style="width:35%;min-width:360px;margin-left:auto;margin-right:auto" class="modal-dialog">
+            <div class="modal-content">
+              <button type="button" class="close" data-dismiss="modal"><span style="margin-right:5px;" aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div style="background:rgba(249, 249, 249, 0.96);border:1px solid #ddd;padding:32px 16px 0px 16px;min-height:300px;text-align:center">
+                    <img style="width:60%" src="/site/img/logo-dark.png" /><br /><br />
+                    <hr />
+                    <h3 style="margin-top:30px;text-align:center">Lineup</h3>
+                    <div class="contact-form" style="margin-top:40px;width:90%;margin-left:auto;margin-right:auto">
+                        <input style="background:#fff" ng-model="invitee.name" type="text" placeholder="Name" class="form-control">                    
+                        <input style="background:#fff" ng-model="invitee.email" type="text" placeholder="Email or Phone Number" class="form-control">
+                    </div>
+                    <div class="row" style="background:#fff;border-top:1px solid #ddd;margin-top:36px;padding-top:24px">
+                          <button style="background:#fff" type="submit" class="btn btn-large">Invite</button>
+                    </div>
+                </div>
+                
+            </div>
+          </div>
+        </div> 
 
         <!-- Create Matchup Modal -->
         <div class="modal fade" id="matchupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -139,7 +163,7 @@
                                                         <table class="table table-striped">
                                                             <thead>
                                                               <tr>
-                                                                <td>Week</td><td>Status</td><td>Num Entries</td>
+                                                                <td>Week</td><td>Status</td><td>Entries</td><td>Lineup</td>
                                                               </tr>
                                                             </thead>
 
@@ -148,6 +172,7 @@
                                                                 <td>Week <% contest.week %></td>
                                                                 <td><% contest.state %></td>
                                                                 <td><% contest.entries.length %></td>
+                                                                <td><a data-toggle="modal" data-target="#lineupModal" href="#">Lineup</a></td>
                                                               </tr>
                                                             </tbody>
                                                         </table>
