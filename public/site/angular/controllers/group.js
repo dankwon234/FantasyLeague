@@ -184,6 +184,8 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 			}
 
 			console.log('CONTEST CREATED: '+JSON.stringify(response));
+			$scope.group.contests.push(response.contest);
+
 		});
 	}
 
