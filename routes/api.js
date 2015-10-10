@@ -384,7 +384,7 @@ router.get('/:resource', function(req, res, next) {
 			  nflPlayer['position'] = player.Position;
 			  nflPlayer['team'] = player.Team;
 			  nflPlayer['value'] = player.Salary;
-//			  nflPlayer.save();
+			  nflPlayer.save();
 			  players.push(nflPlayer.summary());
 		  }
 		  
