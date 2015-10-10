@@ -358,7 +358,6 @@ router.get('/:resource', function(req, res, next) {
 		return;
 	}
 
-	/*
 	// This creates all offensive position nfl players from a static file:
 	if (req.params.resource == 'nflroster'){
 		fs.readFile('public/resources/nflplayers.json', 'utf8', function (err, data) {
@@ -381,11 +380,11 @@ router.get('/:resource', function(req, res, next) {
 			  nflPlayer['firstName'] = parts[0];
 			  nflPlayer['lastName'] = parts[parts.length-1];
 			  
-			  nflPlayer['fantasyPlayerKey'] = player.FantasyPlayerKey;
+			  nflPlayer['fantasyPlayerKey'] = player.PlayerID;
 			  nflPlayer['position'] = player.Position;
 			  nflPlayer['team'] = player.Team;
-			  nflPlayer['value'] = 1000 * player.ProjectedFantasyPoints;
-			  nflPlayer.save();
+			  nflPlayer['value'] = player.Salary;
+//			  nflPlayer.save();
 			  players.push(nflPlayer.summary());
 		  }
 		  
@@ -395,7 +394,8 @@ router.get('/:resource', function(req, res, next) {
 		});
 		return;
 	}
-	*/
+
+
 	
 	var controller = controllers[req.params.resource];
 	if (controller == null){
