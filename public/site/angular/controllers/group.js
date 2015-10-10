@@ -41,19 +41,27 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 				$scope.currentWeek = response['weekly summaries'][0];
 				var games = $scope.currentWeek.games;
 				var gameIds = Object.keys(games);
+				var upcomingGames = [];
 
 				var now = new Date();
 				for (var i=0; i<gameIds.length; i++){
 					var game = games[gameIds[i]];
 					var gameTime = new Date(game.Date);
-					if (gameTime < now)
+					if (gameTime < now) // this game already started, not eligible
 						continue
 					
 					$scope.contest.eligibleTeams.push(game.HomeTeam.toLowerCase());
 					$scope.contest.eligibleTeams.push(game.AwayTeam.toLowerCase());
+					upcomingGames.push(game);
 				}
 
-//				console.log('ELIGIBLE - '+JSON.stringify($scope.contest.eligibleTeams));
+				upcomingGames.sort(function(a, b){ // Turn your strings into dates, and then subtract them to get a value that is either negative, positive, or zero.
+					return new Date(b.Date) - new Date(a.Date);
+				});
+
+				$scope.currentWeek['upcomingGames'] = upcomingGames;
+
+
 
 				// fetch group:
 				var requestInfo = $scope.generalService.parseLocation('site');
@@ -160,6 +168,9 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 		$scope.contest['week'] = $scope.currentWeek.week;
 		$scope.contest['season'] = $scope.currentWeek.season;
 
+		var nextGame = $scope.currentWeek.upcomingGames[0];
+		$scope.contest['expires'] = nextGame.Date;
+
 
 		var entry = {};
 		entry['profile'] = $scope.profile.id;
@@ -177,10 +188,19 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 		}
 
 		entry['lineup'] = lineup;
-
 		$scope.contest.entries.push(entry);
-		console.log('CREATE CONTEST: '+JSON.stringify($scope.contest));
+
+		RestService.post({resource:'contest', id:null}, $scope.contest, function(response) {
+			console.log(JSON.stringify(response));
+			if (response.confirmation != 'success'){
+				alert(response.message);
+				return;
+			}
+
+			console.log('CONTEST CREATED: '+JSON.stringify(response));
+		});
 	}
+
 	
 	$scope.updateContestDescription = function(){
 		if ($scope.contest.buyIn == 0){
