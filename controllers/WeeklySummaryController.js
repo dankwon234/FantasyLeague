@@ -48,7 +48,7 @@ this.handleGet = function(req, res, pkg){
 				return;
 			}
 			
-			fs.readFile('public/resources/2015SchedulePRE.json', 'utf8', function (err, data) {
+			fs.readFile('public/resources/nfl/2015Schedule.json', 'utf8', function (err, data) {
 				if (err) {
 					res.send({'confirmation':'fail', 'message':err.message});
 					return;
@@ -56,19 +56,31 @@ this.handleGet = function(req, res, pkg){
 				
 				var schedule = JSON.parse(data); // this is an array
 			
+				var deleteKeys = [
+						'StadiumID', 
+						'StadiumDetails', 
+						'Channel',
+						'GeoLat',
+						'GeoLong',
+						'ForecastTempLow',
+						'ForecastTempHigh',
+						'ForecastDescription',
+						'ForecastWindChill',
+						'ForecastWindSpeed'];
+
 				var games = {};
 				for (var i=0; i<schedule.length; i++){
 					var game = schedule[i];
 					if (game.Week != week)
 						continue;
 				
-					delete game["StadiumID"];
-					delete game["StadiumDetails"];
-					delete game["Channel"];
+					for (var j=0; j<deleteKeys.length; j++)
+						delete game[deleteKeys[j]];
+					
 					games[game.GameKey] = game;
 				}
 			
-				var body = {'games':games, 'week':week, 'isCurrent':'yes', 'season':'2015PRE'};
+				var body = {'games':games, 'week':week, 'isCurrent':'yes', 'season':'2015REG'};
 				WeeklySummary.create(body, function(err, weeklysummary){
 					if (err){
 						res.json({'confirmation':'fail', 'message':err.message});
