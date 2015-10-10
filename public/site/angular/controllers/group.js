@@ -173,7 +173,38 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 		var nextGame = $scope.currentWeek.upcomingGames[0];
 		$scope.contest['expires'] = nextGame.Date;
 
+		var entry = prepareEntry();
+		$scope.contest.entries.push(entry);
 
+		RestService.post({resource:'contest', id:null}, $scope.contest, function(response) {
+			console.log(JSON.stringify(response));
+			if (response.confirmation != 'success'){
+				alert(response.message);
+				return;
+			}
+
+			console.log('CONTEST CREATED: '+JSON.stringify(response));
+		});
+	}
+
+	$scope.joinContest = function(contest){
+		contest.participants.push($scope.profile.id);
+
+		var entry = prepareEntry();
+		contest.entries.push(entry);
+
+		RestService.put({resource:'contest', id:contest.id}, contest, function(response) {
+			console.log(JSON.stringify(response));
+			if (response.confirmation != 'success'){
+				alert(response.message);
+				return;
+			}
+
+			console.log('JOIN CONTEST: '+JSON.stringify(contest));
+		});
+	}
+
+	function prepareEntry(){
 		var entry = {};
 		entry['profile'] = $scope.profile.id;
 		entry['score'] = '0';
@@ -190,17 +221,7 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 		}
 
 		entry['lineup'] = lineup;
-		$scope.contest.entries.push(entry);
-
-		RestService.post({resource:'contest', id:null}, $scope.contest, function(response) {
-			console.log(JSON.stringify(response));
-			if (response.confirmation != 'success'){
-				alert(response.message);
-				return;
-			}
-
-			console.log('CONTEST CREATED: '+JSON.stringify(response));
-		});
+		return entry;
 	}
 
 	
