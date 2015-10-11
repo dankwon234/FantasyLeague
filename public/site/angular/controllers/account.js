@@ -125,11 +125,11 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 			
 			var image = response.image;
 			$scope.profile['image'] = image.id;
-			updateProfile();
+			$scope.updateProfile(false);
 		});
 	}
 	
-	function updateProfile(){
+	$scope.updateProfile = function(showAlert){
 		accountService.updateProfile($scope.profile, function(response, error){
 			if (error != null){
 				$scope.loading = false;
@@ -137,7 +137,11 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 				return;
 			}
 			
-			$scope.profile = resposne.profile;
+			$scope.profile = response.profile;
+			if (showAlert == false)
+				return;
+
+			alert('Profile Updated');
 		});
 
 	}
