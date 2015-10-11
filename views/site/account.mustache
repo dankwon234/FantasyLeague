@@ -40,7 +40,7 @@
                 <div class="row-fluid">
                     <div class="col-md-3 hidden-xs bg-secondary" style="border-right:1px solid #ddd;padding:48px 24px 0px 48px;min-height:900px">
                             <div class="widget">
-                                <img style="width:94px;margin-bottom:24px" ng-show="profile.image.length > 0" ng-src="https://media-service.appspot.com/site/images/<% profile.image %>?crop=360" />
+                                <img style="width:94px;margin-bottom:24px;border:1px solid #ededed" ng-show="profile.image.length > 0" ng-src="https://media-service.appspot.com/site/images/<% profile.image %>?crop=360" />
                                 <br />
                                 <h6 class="title"><% profile.firstName %> <% profile.lastName %></h6>
                                 <hr>
@@ -69,7 +69,11 @@
 
                     <div class="col-md-9 mb-xs-24">
                             <div ng-show="currentSection=='account'" class="post-snippet mb64" style="padding:48px">
-                                <h4>Account</h4>
+                                <div class="sectionHeader" style="background:#f1f9f5">
+                                    <h3>Account</h3>
+                                    Manage your account details, image and Venmo Account.
+                                </div>
+
                                 <div ng-file-drop="onFileSelect($files, 'image', 'images')" style="width:48%;height:96px;background:#f9f9f9;border:1px solid #ddd;text-align:center">
                                     <img align="left" style="width:94px" ng-show="profile.image.length > 0" ng-src="https://media-service.appspot.com/site/images/<% profile.image %>?crop=360" />
                                     <br />
@@ -96,7 +100,10 @@
                             </div>
 
                             <div ng-show="currentSection=='groups'" class="post-snippet mb64" style="padding:48px">
-                                <h4>Groups</h4>
+                                <div class="sectionHeader" style="background:#f9f5f1">
+                                    <h3>Groups</h3>
+                                    These are the groups you currently belong to.
+                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                       <tr>
@@ -116,7 +123,10 @@
 
 
                             <div ng-show="currentSection=='invitations'" class="post-snippet mb64" style="padding:48px">
-                                <h4>Invitations</h4>
+                                <div class="sectionHeader" style="background:#f2f2f8">
+                                    <h3>Invitations</h3>
+                                    You have been invited to the following groups.
+                                </div>
                                 <table class="table table-striped">
                                     <thead>
                                       <tr>

@@ -125,9 +125,22 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 			
 			var image = response.image;
 			$scope.profile['image'] = image.id;
+			updateProfile();
 		});
 	}
 	
+	function updateProfile(){
+		accountService.updateProfile($scope.profile, function(response, error){
+			if (error != null){
+				$scope.loading = false;
+                alert(error.message);
+				return;
+			}
+			
+			$scope.profile = resposne.profile;
+		});
+
+	}
 
 	
 	$scope.login = function(){
