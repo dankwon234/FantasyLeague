@@ -114,43 +114,42 @@
 	    {{>nav}}
 		
 		
-        <div class="main-container">
+        <div class="main-container" ng-cloak>
 		
-		  <section class="page-title page-title-4 image-bg overlay parallax">
-                <div class="background-image-holder fadeIn" style="transform: translate3d(0px, 0px, 0px); top:0px; background: url('/site/img/programming.jpg');">
-                    <img alt="Background Image" class="background-image" src="/site/img/computer.jpg" style="display: none;">
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3 class="uppercase mb0">Group</h3>
-                        </div>
-                    </div>
-                    <!--end of row-->
-                </div>
-                <!--end of container-->
-            </section>
-
             <section style="border-top:1px solid #ddd;padding-top:0px;padding-bottom:0px">
                 <div class="row-fluid">
-                    <div class="col-md-3 hidden-xs bg-secondary" style="border-right:1px solid #ddd;padding:48px 24px 0px 48px;min-height:2100px">
-                            <div class="widget">
-                                <h6 class="title">Workshops</h6>
-                                <hr>
-                                <ul class="link-list recent-posts">
-                                    <li><a ng-click="currentSection = 'matchups'" href="">Matchups</a></li>
-                                    <li><a ng-click="currentSection = 'members'" href="">Members</a></li>
-                                    <li><a ng-click="currentSection = 'roster'" href="">Roster</a></li>
+                    <div class="col-md-3 hidden-xs bg-secondary" style="border-right:1px solid #ddd;padding:48px 24px 0px 48px;min-height:900px">
+                        <div class="widget">
+                            <h6 class="title"><% group.title %></h6>
+                            <hr>
+                            <ul class="recent-posts">
+                                <li>
+                                    <a ng-click="currentSection = 'matchups'" href="">
+                                        Matchups<span ng-show="currentSection == 'matchups'"> + </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="currentSection = 'members'" href="">
+                                        Members<span ng-show="currentSection == 'members'"> + </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="currentSection = 'roster'" href="">
+                                        Roster<span ng-show="currentSection == 'roster'"> + </span>
+                                    </a>
+                                </li>
                                     
-                                </ul>
-                            </div>
-                            <!--end of widget-->
+                            </ul>
 
+                        </div>
                     </div>
 
                     <div class="col-md-9 mb-xs-24">
                             <div ng-show="currentSection=='matchups'" class="post-snippet mb64" style="padding:48px">
-                                <h4>Matchups</h4>
+                                <div class="sectionHeader" style="background:#f1f9f5">
+                                    <h3>Matchups</h3>
+                                    Manage your account details, image and Venmo Account.
+                                </div>
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -231,7 +230,10 @@
                             </div>
 
                             <div ng-show="currentSection=='members'" class="post-snippet mb64" style="padding:48px">
-                                <h4>Members</h4>
+                                <div class="sectionHeader" style="background:#f9f5f1">
+                                    <h3>Members</h3>
+                                    These are the groups you currently belong to.
+                                </div>
 
 
                                 <div class="row">
@@ -295,7 +297,10 @@
 
 
                             <div ng-show="currentSection=='roster'" class="post-snippet mb64" style="padding:48px">
-                                <h4>Roster</h4>
+                                <div class="sectionHeader" style="background:#f2f2f8">
+                                    <h3>Roster</h3>
+                                    You have been invited to the following groups.
+                                </div>
 
                                 <table class="table table-striped">
                                     <thead>
