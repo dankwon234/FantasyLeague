@@ -72,40 +72,24 @@
                                                     <div class="tab-title"><span>Details</span></div>
                                                     
                                                     <div class="tab-content text-left">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                              <tr>
-                                                                <td>Name</td><td>Value</td>
-                                                              </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                              <tr ng-repeat="member in group.profiles track by $index">
-                                                                <td><% member.fullName %></td><td>10 members</td>
-                                                              </tr>
-                                                            </tbody>
-                                                        </table>
+                                                        <ul>
+                                                            <li>Min Entries: <% contest.minEntries %></li>
+                                                            <li>Entry Fee: $<% contest.buyIn %></li>
+                                                            <li>First Place: $<% contest.payouts[0] %></li>
+                                                            <li>Second Place: $<% contest.payouts[1] %></li>
+                                                            <li>State: <% contest.state %></li>
+                                                            <li>Week: <% contest.week %></li>
+                                                            <li>Expires: <% generalService.formattedDate(contest.expires) %></li>
+                                                        </ul>
                                                         
                                                     </div><!--end of tab content-->
                                                 </li>
                                                 <li>
                                                     <div class="tab-title"><span>Eligible Teams</span></div>
                                                     <div class="tab-content text-left">
-                                                        <table class="table table-striped">
-                                                            <thead>
-                                                              <tr>
-                                                                <td>Name</td><td>Rank</td>
-                                                              </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                              <tr ng-repeat="invitee in group.invited track by $index">
-                                                                <td><% invitee.name %></td><td>10 members</td>
-                                                              </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        
-                                                        <button id="inviteButton" style="background:#fff" data-toggle="modal" data-target="#inviteModal" type="submit" class="btn btn-large">Invite Member</button>
+                                                        <ul>
+                                                            <li ng-repeat="team in contest.eligibleTeams track by $index"><% team.toUpperCase() %></li>
+                                                        </ul>
                                                             
                                                     </div><!--end of tab content-->
                                                 </li>

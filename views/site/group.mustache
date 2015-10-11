@@ -172,10 +172,10 @@
 
                                                             <tbody>
                                                               <tr ng-repeat="contest in group.contests.notclosed track by $index">
-                                                                <td>Week <% contest.week %></td>
+                                                                <td><a href="/site/contest/<% contest.id %>">Week <% contest.week %></a></td>
                                                                 <td><% contest.state %></td>
                                                                 <td>$<% contest.buyIn %>.00</td>
-                                                                <td><% contest.entries.length %></td>
+                                                                <td><a href="/site/contest/<% contest.id %>?section=members"><% contest.entries.length %><a></td>
                                                                 <td>
                                                                     <a ng-show="contest.participants.indexOf(profile.id) != -1" data-toggle="modal" data-target="#lineupModal" href="#">Lineup</a>
                                                                     <a ng-show="contest.participants.indexOf(profile.id) == -1" ng-click="joinContest(contest)" href="">Join</a>
@@ -204,10 +204,10 @@
 
                                                             <tbody>
                                                               <tr ng-repeat="contest in group.contests.closed track by $index">
-                                                                <td>Week <% contest.week %></td>
+                                                                <td><a href="/site/contest/<% contest.id %>">Week <% contest.week %></a></td>
                                                                 <td><% contest.state %></td>
                                                                 <td>$<% contest.buyIn %>.00</td>
-                                                                <td><% contest.entries.length %></td>
+                                                                <td><a href="/site/contest/<% contest.id %>?section=members"><% contest.entries.length %></a></td>
                                                                 <td>
                                                                     <a ng-show="contest.participants.indexOf(profile.id) != -1" data-toggle="modal" data-target="#lineupModal" href="#">Lineup</a>
                                                                 </td>

@@ -53,6 +53,7 @@ app.controller('ContestController', ['$scope', 'accountService', 'generalService
 					return;
 				}
 
+				$scope.currentSection = (requestInfo.params.section) ? requestInfo.params.section: 'summary';
 				fetchContest(requestInfo.identifier);
 			});
 
@@ -68,7 +69,6 @@ app.controller('ContestController', ['$scope', 'accountService', 'generalService
 			}
 
 			$scope.contest = response.contest;
-			$scope.currentSection = 'summary';
 			fetchProfiles();
 		});
 	}
