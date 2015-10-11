@@ -109,7 +109,6 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 					contests.notclosed.push(contest);
 			}
 
-//			$scope.group['contests'] = response.contests;
 			$scope.group['contests'] = contests;
 			fetchRosterPlayers();
 		});
@@ -194,7 +193,7 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 			}
 
 			console.log('CONTEST CREATED: '+JSON.stringify(response));
-			$scope.group.contests.push(response.contest);
+			$scope.group.contests.notclosed.push(response.contest);
 
 		});
 	}
