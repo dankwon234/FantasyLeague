@@ -29,6 +29,7 @@ ContestSchema.methods.summary = function() {
 		'group':this.group, 
 		'title':this.title,
 		'payouts':this.payouts,
+		'minEntries': this.minEntries,
 		'buyIn':this.buyIn,
 		'state':this.state,
 		'entries':this.entries,
