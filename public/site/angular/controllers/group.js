@@ -100,7 +100,17 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 				return;
 			}
 
-			$scope.group['contests'] = response.contests;
+			var contests = {'closed':[], 'notclosed':[]};
+			for (var i=0; i<response.contests.length; i++){
+				var contest = response.contests[i];
+				if (contest.state == 'closed')
+					contests.closed.push(contest);
+				else
+					contests.notclosed.push(contest);
+			}
+
+//			$scope.group['contests'] = response.contests;
+			$scope.group['contests'] = contests;
 			fetchRosterPlayers();
 		});
 	}

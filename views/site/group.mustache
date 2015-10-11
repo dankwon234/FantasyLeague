@@ -172,7 +172,7 @@
                                                             </thead>
 
                                                             <tbody>
-                                                              <tr ng-repeat="contest in group.contests track by $index">
+                                                              <tr ng-repeat="contest in group.contests.notclosed track by $index">
                                                                 <td>Week <% contest.week %></td>
                                                                 <td><% contest.state %></td>
                                                                 <td>$<% contest.buyIn %>.00</td>
@@ -195,13 +195,23 @@
                                                         <table class="table table-striped">
                                                             <thead>
                                                               <tr>
-                                                                <td>Name</td><td>Rank</td>
+                                                                <td>Week</td>
+                                                                <td>Status</td>
+                                                                <td>Buy In</td>
+                                                                <td>Entries</td>
+                                                                <td>&nbsp;</td>
                                                               </tr>
                                                             </thead>
 
                                                             <tbody>
-                                                              <tr>
-                                                                <td>Group 1</td><td>Open</td><td>Free</td>
+                                                              <tr ng-repeat="contest in group.contests.closed track by $index">
+                                                                <td>Week <% contest.week %></td>
+                                                                <td><% contest.state %></td>
+                                                                <td>$<% contest.buyIn %>.00</td>
+                                                                <td><% contest.entries.length %></td>
+                                                                <td>
+                                                                    <a ng-show="contest.participants.indexOf(profile.id) != -1" data-toggle="modal" data-target="#lineupModal" href="#">Lineup</a>
+                                                                </td>
                                                               </tr>
                                                             </tbody>
                                                         </table>
