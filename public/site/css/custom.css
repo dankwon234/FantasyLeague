@@ -6,3 +6,17 @@
 	font-weight: 400;
 	line-height: 28px;	
 }
+
+.sectionHeader {
+	width: 100%;
+	height: 120px;
+	margin-bottom: 36px;
+	text-align: center;
+	padding: 36px;
+	border: 1px solid #444;
+}
+
+.sectionHeader h3 {
+	color:#777
+
+}
