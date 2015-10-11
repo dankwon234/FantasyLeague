@@ -113,6 +113,21 @@ app.controller('AccountController', ['$scope', 'accountService', 'generalService
 		});
 	}
 
+	$scope.onFileSelect = function(files, property, media){
+		$scope.loading = true;
+		uploadService.uploadFiles({'files':files, 'media':media}, function(response, error){
+			$scope.loading = false;
+			
+			if (error != null){
+				alert(error.message);
+				return;
+			}
+			
+			var image = response.image;
+			$scope.profile['image'] = image.id;
+		});
+	}
+	
 
 	
 	$scope.login = function(){

@@ -34,33 +34,32 @@
 	    {{>nav}}
 		
 		
-        <div class="main-container">
-		
-		  <section class="page-title page-title-4 image-bg overlay parallax">
-                <div class="background-image-holder fadeIn" style="transform: translate3d(0px, 0px, 0px); top:0px; background: url('/site/img/programming.jpg');">
-                    <img alt="Background Image" class="background-image" src="/site/img/computer.jpg" style="display: none;">
-                </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3 class="uppercase mb0">Account</h3>
-                        </div>
-                    </div>
-                    <!--end of row-->
-                </div>
-                <!--end of container-->
-            </section>
+        <div class="main-container" ng-cloak>
 
             <section style="border-top:1px solid #ddd;padding-top:0px;padding-bottom:0px">
                 <div class="row-fluid">
-                    <div class="col-md-3 hidden-xs bg-secondary" style="border-right:1px solid #ddd;padding:48px 24px 0px 48px;min-height:2100px">
+                    <div class="col-md-3 hidden-xs bg-secondary" style="border-right:1px solid #ddd;padding:48px 24px 0px 48px;min-height:900px">
                             <div class="widget">
-                                <h6 class="title">Workshops</h6>
+                                <img style="width:94px;margin-bottom:24px" ng-show="profile.image.length > 0" ng-src="https://media-service.appspot.com/site/images/<% profile.image %>?crop=360" />
+                                <br />
+                                <h6 class="title"><% profile.firstName %> <% profile.lastName %></h6>
                                 <hr>
-                                <ul class="link-list recent-posts">
-                                    <li><a ng-click="currentSection = 'account'" href="">Account</a></li>
-                                    <li><a ng-click="currentSection = 'groups'" href="">Groups</a></li>
-                                    <li><a ng-click="currentSection = 'invitations'" href="">Invitations</a></li>
+                                <ul class="recent-posts">
+                                    <li>
+                                        <a ng-click="currentSection = 'account'" href="">
+                                            Account<span ng-show="currentSection == 'account'"> + </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="currentSection = 'groups'" href="">
+                                            Groups<span ng-show="currentSection == 'groups'"> + </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a ng-click="currentSection = 'invitations'" href="">
+                                            Invitations<span ng-show="currentSection == 'invitations'"> + </span>
+                                        </a>
+                                    </li>
                                     
                                 </ul>
                             </div>
@@ -71,16 +70,22 @@
                     <div class="col-md-9 mb-xs-24">
                             <div ng-show="currentSection=='account'" class="post-snippet mb64" style="padding:48px">
                                 <h4>Account</h4>
+                                <div ng-file-drop="onFileSelect($files, 'image', 'images')" style="width:48%;height:96px;background:#f9f9f9;border:1px solid #ddd;text-align:center">
+                                    <img align="left" style="width:94px" ng-show="profile.image.length > 0" ng-src="https://media-service.appspot.com/site/images/<% profile.image %>?crop=360" />
+                                    <br />
+                                    Drag &amp; Drop Image to Change
+
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="contact-form" style="margin-top:40px;">
+                                        <div class="contact-form" style="margin-top:20px;">
                                           <input ng-model="profile.firstName" type="text" placeholder="First Name" class="form-control">
                                           <input ng-model="profile.lastName" type="text" placeholder="Last Name" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="contact-form" style="margin-top:40px;">
+                                        <div class="contact-form" style="margin-top:20px;">
                                           <input ng-model="profile.username" type="text" placeholder="Username" class="form-control">
                                           <input ng-model="profile.email" type="text" placeholder="Email" class="form-control">
                                         </div>
