@@ -220,7 +220,14 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 		var entry = {};
 		entry['profile'] = $scope.profile.id;
 		entry['score'] = '0';
-		var players = $scope.group.rosters[$scope.profile.id]['roster'];
+
+		var roster = $scope.group.rosters[$scope.profile.id];
+		if (roster == null){
+			alert('Please draft at least one player before entering this contest.');
+			return;
+		}
+
+		var players = roster['roster'];
 		var lineup = [];
 		for (var i=0; i<players.length; i++){
 			var playerId = players[i];
