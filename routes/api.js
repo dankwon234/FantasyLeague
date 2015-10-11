@@ -60,7 +60,7 @@ var fetchGroup = function(groupId){
 }
 
 // this function inserts player results into the contest[results] key:
-var updateContest = function(contest, stats){
+var updateContest = function(contest, stats, state){
 	var entries = contest['entries']; // [{profile:123, lineup:[134132, 3213, 12555, etc]}]
 	var results = {};
 	
@@ -94,6 +94,7 @@ var updateContest = function(contest, stats){
 	
 	contest['entries'] = entries;
 	contest['results'] = results;
+	contest['state'] = state;
 	contest.save();
 }
 
@@ -257,6 +258,11 @@ router.get('/:resource', function(req, res, next) {
 			return;
 		}
 		
+		var state = req.query.state;
+		if (state == null)
+			state = 'pending';
+		
+
 		var all = {};
 		
 		fetchWeeklySummaries(week)
@@ -279,7 +285,7 @@ router.get('/:resource', function(req, res, next) {
 			var contests = all['contests'];
 			for (var i=0; i<contests.length; i++){
 				var contest = contests[i];
-				updateContest(contest, weeklysummary['stats']);
+				updateContest(contest, weeklysummary['stats'], state);
 			}
 			
 			
