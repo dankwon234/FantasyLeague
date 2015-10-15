@@ -35,6 +35,9 @@ generalService.factory('generalService', [function(){
     }
 
     manager.formattedNumber = function(num){
+        if (num == null)
+            return;
+        
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
     
