@@ -5,13 +5,14 @@ app.controller('HomeController', ['$scope', 'accountService', 'generalService', 
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':''};
 	$scope.loading = false;
+	$scope.weeklyGames = {};
 
 	
 	$scope.init = function(){
 		accountService.checkCurrentUser(function(response){
 			if (response.confirmation == 'success')
 				$scope.profile = response.profile;
-			
+				getWeeklyGames();
 		});
 	}
 	
@@ -54,6 +55,19 @@ app.controller('HomeController', ['$scope', 'accountService', 'generalService', 
 		});
 	}
 	
+	$scope.getWeeklyGames = function () {
+		console.log('get weekly games called')
+      restService.query({resource:'weeklysummary'}, function(response){
+      console.log(JSON.stringify(response));
+      if (response.confirmation != 'success') {
+          alert('Error: ' + response.message);
+          return;
+      }
+      
+  });
+
+
+	}
 	
 	
 	
