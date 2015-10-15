@@ -5,7 +5,6 @@ accountService.factory('accountService', ['RestService', function(RestService){
 	var accountManager = {};
 	
 	accountManager.checkCurrentUser = function(completion){
-		console.log('ACCOUNT SERVICE: Check Current User ');
 		RestService.get({resource:'currentuser', id:null}, function(response){
 			console.log('ACCOUNT SERVICE RESPONSE == '+JSON.stringify(response));
 			
