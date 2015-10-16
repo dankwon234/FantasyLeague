@@ -1,6 +1,6 @@
-var app = angular.module('ContestModule', []);
+var contestCtr = angular.module('ContestModule', []);
 
-app.controller('ContestController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
+contestCtr.controller('ContestController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
 	$scope['generalService'] = generalService;
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':'', 'isPublic':'no'};

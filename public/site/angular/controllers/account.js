@@ -1,6 +1,6 @@
-var app = angular.module('AccountModule', []);
+var accountCtr = angular.module('AccountModule', []);
 
-app.controller('AccountController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
+accountCtr.controller('AccountController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
 	$scope['generalService'] = generalService;
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':'', 'isPublic':'no'};

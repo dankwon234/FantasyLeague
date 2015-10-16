@@ -1,6 +1,6 @@
-var app = angular.module('NFLPlayersModule', []);
+var nflPlayersCtr = angular.module('NFLPlayersModule', []);
 
-app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
+nflPlayersCtr.controller('NFLPlayersController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
 	$scope['generalService'] = generalService;
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':''};

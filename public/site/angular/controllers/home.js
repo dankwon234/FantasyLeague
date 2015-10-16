@@ -1,6 +1,6 @@
-var app = angular.module('HomeModule', []);
+var homeCtr = angular.module('HomeModule', []);
 
-app.controller('HomeController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
+homeCtr.controller('HomeController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
 	$scope['generalService'] = generalService;
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':''};
