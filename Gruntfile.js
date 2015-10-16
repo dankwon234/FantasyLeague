@@ -25,7 +25,17 @@ module.exports = function(grunt) {
             vendor: { 
                 src: [
                     './public/site/js/jquery.min.js',
-                    './public/site/js/*.js',
+                    './public/site/js/bootstrap.min.js',
+                    './public/site/js/flexslider.min.js',
+                    './public/site/js/lightbox.min.js',
+                    './public/site/js/masonry.min.js',
+                    './public/site/js/twitterfetcher.min.js',
+                    './public/site/js/spectragram.min.js',
+                    './public/site/js/ytplayer.min.js',
+                    './public/site/js/countdown.min.js',
+                    './public/site/js/smooth-scroll.min.js',
+                    './public/site/js/parallax.js',
+                    './public/site/js/scripts.js',
                     './public/site/angular/thirdparty/fileupload/angular-file-upload-shim.js',
                     './public/site/bower_components/angular/angular.min.js',
                     './public/site/bower_components/angular-sanitize/angular-sanitize.min.js',
