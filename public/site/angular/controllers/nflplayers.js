@@ -8,9 +8,11 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 
 	$scope.pages = [];
 	$scope.players = [];
+	$scope.playerMap = {};
 	$scope.visiblePlayers = [];
 	$scope.currentSection = 'all';
 	$scope.group = null;
+	$scope.salaryCap = 50000;
 
 	
 	$scope.init = function(){
@@ -29,6 +31,7 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 
 					player['index'] = i;
 					$scope.players.push(player);
+					$scope.playerMap[player.fantasyPlayerKey] = player;
 				}
 
 				for (var i=0; i<$scope.players.length; i++){
@@ -78,10 +81,31 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 			$scope.group = response.group;
 			if ($scope.group.rosters[$scope.profile.id] == null)
 				$scope.group.rosters[$scope.profile.id] = {'roster':[], 'profile':{'id':$scope.profile.id, 'firstName':$scope.profile.firstName, 'lastName':$scope.profile.lastName, 'username':$scope.profile.username}};
+			else
+				adjustSalaryCap();
 		});
 	}
+
+	function adjustSalaryCap(){
+		var roster = $scope.group.rosters[$scope.profile.id].roster;
+		for (var i=0; i<roster.length; i++) {
+			var player = $scope.playerMap[roster[i]];
+			$scope.salaryCap -= player.value;
+		}
+	}
+
 	
-	$scope.addPlayer = function(player){
+	$scope.addPlayer = function(player) {
+		var index = $scope.group.rosters[$scope.profile.id].roster.indexOf(player.fantasyPlayerKey);
+		if (index != -1)
+			return;
+
+		if (player.value > $scope.salaryCap){
+			alert('No Cap Space. Please drop a player first.');
+			return;
+		}
+
+		$scope.salaryCap -= player.value;
 		$scope.group.rosters[$scope.profile.id].roster.push(player.fantasyPlayerKey);
 		var roster = $scope.group.rosters[$scope.profile.id];
 		updateRoster();
@@ -94,6 +118,7 @@ app.controller('NFLPlayersController', ['$scope', 'accountService', 'generalServ
 		if (index == -1)
 			return;
 
+		$scope.salaryCap += player.value;
 		$scope.group.rosters[$scope.profile.id].roster.splice(index, 1);
 		updateRoster();
 	}

@@ -73,6 +73,7 @@
                     <div class="col-md-9 mb-xs-24">
                             <div ng-show="currentSection=='all'" class="post-snippet mb64" style="padding:48px">
                                 <h4>All Players</h4>
+                                <h5>Remaining Salary: $<% salaryCap %></h5>
                                     Page: 
                                     <a style="margin-left:8px" ng-repeat="page in pages track by $index" ng-click="loadPlayers($index)" href=""><% page %></a>
                                     <br /><br />

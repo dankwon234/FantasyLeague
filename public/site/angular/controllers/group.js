@@ -1,6 +1,6 @@
-var app = angular.module('GroupModule', []);
+var groupCtr = angular.module('GroupModule', []);
 
-app.controller('GroupController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
+groupCtr.controller('GroupController', ['$scope', 'accountService', 'generalService', 'uploadService', 'RestService', function($scope, accountService, generalService, uploadService, RestService) {
 	$scope['generalService'] = generalService;
 	$scope.profile = null;
 	$scope.credentials = {'email':'', 'password':'', 'name':'', 'isPublic':'no'};
@@ -11,6 +11,7 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 	$scope.players = {};
 	$scope.contestDescription = 'No Prize';
 	$scope.currentWeek = null;
+	$scope.salaryCap = 50000;
 	$scope.contest = {
 		'creator':'',
 		'group':'',
@@ -128,8 +129,21 @@ app.controller('GroupController', ['$scope', 'accountService', 'generalService',
 
 				var player = response.players[0];
 				$scope.players[player.fantasyPlayerKey] = player;
+				var keys = Object.keys($scope.players);
+				if (keys.length == roster.length)
+					adjustSalaryCap();
 			});
 		}
+	}
+
+	function adjustSalaryCap(){
+		var keys = Object.keys($scope.players);
+		for (var i=0; i<keys.length; i++){
+			var player = $scope.players[keys[i]];
+			$scope.salaryCap -= player.value;
+		}
+
+		console.log('SALARY CAP: '+$scope.salaryCap);
 	}
 
 	$scope.invite = function(){
