@@ -6,11 +6,10 @@ nflPlayersCtr.controller('NFLPlayersController', ['$scope', 'accountService', 'g
 	$scope.credentials = {'email':'', 'password':'', 'name':''};
 	$scope.loading = false;
 
-	$scope.pages = [];
-	$scope.players = [];
-	$scope.playerMap = {};
+	$scope.playerMap = {'all':[], 'qb':[], 'rb':[], 'wr':[], 'te':[]};
 	$scope.visiblePlayers = [];
-	$scope.currentSection = 'all';
+	$scope.playerSource = 'all';
+	$scope.pages = [];
 	$scope.group = null;
 	$scope.salaryCap = 50000;
 
@@ -30,18 +29,14 @@ nflPlayersCtr.controller('NFLPlayersController', ['$scope', 'accountService', 'g
 						continue;
 
 					player['index'] = i;
-					$scope.players.push(player);
+					$scope.playerMap.all.push(player);
 					$scope.playerMap[player.fantasyPlayerKey] = player;
+					var positionArray = $scope.playerMap[player.position];
+					if (positionArray != null)
+						$scope.playerMap[player.position].push(player);
 				}
 
-				for (var i=0; i<$scope.players.length; i++){
-					if (i < 20)
-						$scope.visiblePlayers.push($scope.players[i]);
-
-					if (i % 20 == 0){
-						$scope.pages.push(i/20 + 1);
-					}
-				}
+				paginate();
 
 				if ($scope.profile == null)
 					return;
@@ -55,20 +50,44 @@ nflPlayersCtr.controller('NFLPlayersController', ['$scope', 'accountService', 'g
 				
 				fetchGroup(requestInfo.params.group);
 			});
-
-
 		});
 	}
 
+	$scope.setPlayerSource = function(source){
+		console.log('SET PLAYER SOURCE: '+source);
+		$scope.playerSource = source;
+		paginate();
+
+		$scope.loadPlayers(0);
+	}
+
+	function paginate(){
+		$scope.pages = [];
+
+		for (var i=0; i<$scope.playerMap[$scope.playerSource].length; i++){
+			if (i < 20)
+				$scope.visiblePlayers.push($scope.playerMap[$scope.playerSource][i]);
+
+			if (i % 20 == 0)
+				$scope.pages.push(i/20 + 1);
+		}
+	}
+
+
 	$scope.loadPlayers = function(page){
+		console.log('LOAD PLAYERS');
 		var index = page * 20;
 		var max = index+20;
-		if (max >= $scope.players.length)
-			max = $scope.players.length;
+
+		if (max >= $scope.playerMap[$scope.playerSource].length)
+			max = $scope.playerMap[$scope.playerSource].length;
 
 		$scope.visiblePlayers = [];
-		for (var i=index; i<max; i++)
-			$scope.visiblePlayers.push($scope.players[i]);
+		for (var i=index; i<max; i++){
+			$scope.visiblePlayers.push($scope.playerMap[$scope.playerSource][i]);
+
+		}
+
 	}
 
 
