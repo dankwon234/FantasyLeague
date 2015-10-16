@@ -24,11 +24,8 @@ module.exports = function(grunt) {
             },
             vendor: { 
                 src: [
-                    './public/site/js/knob.js',
-                    './public/site/js/spin.js',
-                    './public/site/js/moment.js',
-                    './public/site/js/pi.init.tab.js',
-                    './public/site/js/jquery.form.js',
+                    './public/site/js/jquery.min.js',
+                    './public/site/js/*.js',
                     './public/site/angular/thirdparty/fileupload/angular-file-upload-shim.js',
                     './public/site/bower_components/angular/angular.min.js',
                     './public/site/bower_components/angular-sanitize/angular-sanitize.min.js',
